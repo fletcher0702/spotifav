@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title> {{title}} </title>
+    <link rel="icon" type="image/png" href="/assets/images/spotify-logo.png">
+    <link rel="stylesheet" href="/semantic/semantic.min.css">
+    <link rel="stylesheet" href="/assets/css/index.css">
+
+    <!-- Compiled and minified CSS -->
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css"> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.2/semantic.min.js"></script>
+
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+  </head>
+  <main>
+  <body>
+    <div class="ui inverted segment top fixed menu black">
+      <a href="/" class="ui big image">
+      <img class="ui avatar image" src="/assets/images/spotify.png"><span id="logo"><b>SpotiFav</b></span>
+      </a>
+      <a href="/" class="item right">Acceuil</a>
+      <a href="albums" class="item">Gallerie</a>
+      <a href="subscribe" class="item">S'inscrire</a>
+      <a href="login" class="item">Se connecter</a>
+    </div>
+
+    <div class="main">
+        {{{body}}}
+    </div>
+
+  </body>
+</main>
+
+    <section id="footer" class="ui copyright">
+
+        <div class="ui inverted segment menu black">
+            <span id="copyright">Copyright © 2018 <i id="flag" class="france flag"></i></span>
+        </div>
+    </section>
+
+</html>

@@ -1,0 +1,7 @@
+apps:
+  - script: ./src/index.js
+    name: SpotiFav
+    env:
+      BABEL_CACHE_PATH: ./node_modules/.babel_cache
+    watch:
+      - src

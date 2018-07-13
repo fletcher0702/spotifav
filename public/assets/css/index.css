@@ -1,0 +1,130 @@
+html{
+
+  font-weight: bolder;
+
+}
+body {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+
+input[type=text], textarea {
+  -webkit-transition: all 0.30s ease-in-out;
+  -moz-transition: all 0.30s ease-in-out;
+  -ms-transition: all 0.30s ease-in-out;
+  -o-transition: all 0.30s ease-in-out;
+  outline: none;
+  padding: 3px 0px 3px 3px;
+  margin: 5px 1px 3px 0px;
+  border: 1px solid #DDDDDD;
+}
+
+input[type=text]:focus, textarea:focus {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  border: 1px solid rgba(81, 203, 238, 1);
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+form.ui.form.authenticate{
+
+  padding-top: 5%;
+  padding-left: 25%;
+  padding-right: 25%;
+  padding-bottom: 5%;
+
+}
+#btn-form{
+
+  position: relative;
+  float: right;
+}
+#logo{
+  font-size: 26px;
+  color: white;
+  padding-top: 20px;
+}
+div.main{
+
+  padding-top: 2%;
+}
+div.favoris{
+  padding-top: 3%;
+  padding-right: 10%;
+  padding-left: 10%;
+}
+#favHead{
+  text-align: center;
+}
+div.container{
+  height: 100vh;
+  background: url(../images/spotify-index.png);
+  background-size: cover;
+  background-position: center;
+}
+
+div.ui.inverted.bottom.segement.menu.black{
+
+  width:100%;
+  padding-top: 5%
+
+}
+div.ui.copyright{
+
+  float: right;
+}
+#searchHome{
+
+position: absolute;
+top: 50%;
+left: 40%;
+transform: translate(-50%, -50%);
+
+}
+#searchBar{
+  border-radius: 20px;
+  text-align: center;
+  font-family: Lato;
+
+}
+
+#searchBarLeft{
+
+  border-radius: 20px 0% 0% 20px;
+  text-align: center;
+  font-family: Lato;
+  width: 150%;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+#searchBarRight{
+
+  border-radius: 0 20px 20px 0;
+  text-align: center;
+  font-family: Lato;
+  width: 30%;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+#footerContent{
+  background-color: rgba(0, 0, 0, 0);
+  color: white;
+
+}
+#copyright{
+  padding-left: 80%;
+
+}
+#flag{
+  margin-left: 10px;
+}
+
+#searchButton{
+
+  border-radius: 0 20px 20px 0;
+}
