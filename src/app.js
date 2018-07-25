@@ -3,8 +3,9 @@ import config from 'config';
 import bodyParser from 'body-parser';
 import hbs from 'express-handlebars';
 import path from 'path';
+import passport from 'passport';
 import router from './routes';
-// import apiRouter from './api';
+import apiRouter from './api';
 
 const app = express();
 
@@ -24,8 +25,10 @@ app.use(bodyParser.json());
 // loading css et js from semantic
 app.use(express.static('public'));
 
+app.use(passport.initialize());
+
 app.use('', router);
-// app.use('/api', apiRouter);
+app.use('/api', apiRouter);
 
 app.listen(config.get('port'), () => {
   console.log('You Now Listening on port 3000');

@@ -22,13 +22,6 @@ class UsersServices {
     //   password: 'le mot de pass modifié',
     //
     // };
-
-
-    console.log(testValidate.value.password);
-    console.log(sha1);
-    console.log(`tester : ${testValidate.firstName}`);
-
-
     return joi.validate(data, model).then(validatedData => clients.mongodb()
       .then(db => db.collection(this.COLLECTION_NAME).insertOne(validatedData))
       .then(response => response.ops[0]));
@@ -64,6 +57,16 @@ class UsersServices {
       .then((list) => {
         if (!list) throw errors.notFound();
         return list;
+      });
+  }
+
+  findUser(userEmail, userPassword) {
+    return joi.validate(userEmail, joi.string().required())
+      .then(() => clients.mongodb())
+      .then(db => db.collection(this.COLLECTION_NAME).findOne({ email: userEmail, password: userPassword }))
+      .then((user) => {
+        if (!user) throw errors.notFound();
+        return user;
       });
   }
 
