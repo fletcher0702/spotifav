@@ -1,6 +1,5 @@
 import joi from 'joi';
 import sha1 from 'sha1';
-import { ObjectId } from 'mongodb';
 import clients from '../../clients';
 import model, { modelForUpdate } from './models';
 import errors from '../../enums/errors';
@@ -12,25 +11,18 @@ class UsersServices {
   }
 
   createOne(data) {
-    // Mr j'ai pas trouver la bonne syntax pour modifier l'object
-    // J'ai même essayer un object spread
-
+    if (this.findOne(data.email)) throw errors.alreadyExist();
     const testValidate = joi.validate(data, model);
     testValidate.value.password = sha1(testValidate.value.password);
-    // const modifiedValidatedData = {
-    //   ...testValidate,
-    //   password: 'le mot de pass modifié',
-    //
-    // };
     return joi.validate(data, model).then(validatedData => clients.mongodb()
       .then(db => db.collection(this.COLLECTION_NAME).insertOne(validatedData))
       .then(response => response.ops[0]));
   }
 
-  deleteOne(id) {
-    return joi.validate(id, joi.string().required())
+  deleteOne(userEmail) {
+    return joi.validate(userEmail, joi.string().required())
       .then(() => clients.mongodb())
-      .then(db => db.collection(this.COLLECTION_NAME).deleteOne({ _id: ObjectId(id) }))
+      .then(db => db.collection(this.COLLECTION_NAME).deleteOne({ email: userEmail }))
       .then((response) => {
         if (response.deletedCount === 0) throw errors.notFound();
 
@@ -50,10 +42,10 @@ class UsersServices {
       });
   }
 
-  findOne(id) {
-    return joi.validate(id, joi.string().required())
+  findOne(userEmail) {
+    return joi.validate(userEmail, joi.string().required())
       .then(() => clients.mongodb())
-      .then(db => db.collection(this.COLLECTION_NAME).findOne({ _id: ObjectId(id) }))
+      .then(db => db.collection(this.COLLECTION_NAME).findOne({ email: userEmail }))
       .then((list) => {
         if (!list) throw errors.notFound();
         return list;
@@ -63,22 +55,24 @@ class UsersServices {
   findUser(userEmail, userPassword) {
     return joi.validate(userEmail, joi.string().required())
       .then(() => clients.mongodb())
-      .then(db => db.collection(this.COLLECTION_NAME).findOne({ email: userEmail, password: userPassword }))
+      .then(db => db.collection(this.COLLECTION_NAME)
+        .findOne({ email: userEmail, password: userPassword }))
       .then((user) => {
         if (!user) throw errors.notFound();
         return user;
       });
   }
 
-  updateOne(id, data) {
-    return joi.validate(id, joi.string().required())
+  updateOne(userEmail, data) {
+    if (this.findOne(data.email)) throw errors.alreadyExist();
+    return joi.validate(userEmail, joi.string().required())
       .then(() => joi.validate(data, modelForUpdate))
       .then((validatedData) => {
         return clients.mongodb()
           .then(db => db
             .collection(this.COLLECTION_NAME)
             .updateOne(
-              { _id: ObjectId(id) },
+              { email: userEmail },
               { $set: validatedData },
             ));
       })
@@ -87,7 +81,7 @@ class UsersServices {
 
         return response;
       })
-      .then(() => this.findOne(id));
+      .then(() => this.findOne(userEmail));
   }
 }
 

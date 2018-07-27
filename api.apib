@@ -1,0 +1,50 @@
+FORMAT: 1A
+HOST: http://localhost:3000
+
+# Spotifav App
+
+# Group Users
+## Get users [GET /users{?first}{?offset}{?term}]
++ Response 200 (application/json)
+  + Attributes (array[User])
+
+## Create a user [POST /users]
++ Body
+  `{ firstName: "john", email: "john.doe@gmail.com" }`
++ Response 200 (application/json)
+  + Attributes (User)
+
+## Manage a user [/users/{userEmail}]
+### Get a user [GET]
++ Response 200 (application/json)
+  + Attributes (User)
++ Response 404 (application/json)
+
+### Update a user [PATCH]
++ Body
+  `{ firstName: "john", lastName: "doe" }`
++ Response 200 (application/json)
+  + Attributes (User)
++ Response 404 (application/json)
+
+### Delete a user [DELETE]
++ Response 200 (application/json)
+  + Attributes (User)
++ Response 404 (application/json)
+
+
+
+# Data Structures
+
+## User (object)
++ firstName (string)
++ lastName (string)
++ isAdmin (boolean, required)
++ email (string, required)
++ password (string, required)
+
+## Album (object)
++ albumName (string, required)
++ artistName (string, required)
++ year (string, required)
++ userId (string, required)

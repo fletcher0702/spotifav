@@ -1,8 +1,37 @@
 // import express from 'express';
 import { Router } from 'express';
+import passport from 'passport';
+import { Strategy as LocalStrategy } from 'passport-local';
 import createOne from './middleware/createOne';
+import listsServices from '../../modules/users/services';
+
 
 const router = Router();
+
+router.use(passport.initialize());
+
+passport.use(new LocalStrategy({
+  usernameField: 'email',
+  passwordField: 'password',
+},
+(username, password, done) => {
+  listsServices
+    .findUser(username, password)
+    .then(user => done(null, user))
+    .catch(err => done(err));
+}));
+
+passport.serializeUser((user, done) => {
+  console.log(user);
+  done(null, user._id);
+});
+
+passport.deserializeUser((id, done) => {
+  listsServices
+    .findOne(id)
+    .then(user => done(null, user))
+    .catch(err => done(err));
+});
 
 const views = {
 
@@ -11,7 +40,6 @@ const views = {
   login: 'login',
   gallerie: 'albums',
 };
-
 
 router.get('/', (request, response) => {
   response.redirect('/home');
@@ -25,18 +53,16 @@ router.get('/home', (request, response) => {
   response.render(views.home, { title: 'Acceuil', albums: '/albums' });
 });
 
-router.post('/login', (request, response) => {
-  response.render(views.home);
-  console.log(request.body);
-});
+router.post('/login', passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/login',
+}));
 
 router.get('/login', (request, response) => {
-  console.log(request.body);
   response.render(views.login, { home: '/login', title: 'Acceuil' });
 });
 
 router.post('/', (request, response) => {
-  console.log(request.body);
   response.render(views.login);
 });
 router.get('/subscribe', (request, response) => {

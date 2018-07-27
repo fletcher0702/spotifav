@@ -1,8 +1,8 @@
-import listsServices from '../../../modules/users/services';
+import usersServices from '../../../modules/users/services';
 
 export default function (req, res, next) {
-  listsServices
-    .findOne(req.params.id)
+  usersServices
+    .findOne(req.params.userEmail)
     .then(response => res.send(response))
     .catch(err => next(err));
 }

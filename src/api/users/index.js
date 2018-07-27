@@ -12,13 +12,14 @@ import cfg from './middleware/config';
 
 const opts = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: cfg.jwtSecret,
+  secretOrKey: 'MyS3cr3tK3Y',
 };
 
 const router = Router();
 router.use(passport.initialize());
 
 const strategy = new Strategy(opts, ((payload, done) => {
+  console.log(payload);
   listsServices
     .findOne(payload)
     .then(user => done(null, user))
@@ -27,14 +28,15 @@ const strategy = new Strategy(opts, ((payload, done) => {
 passport.use(strategy);
 
 // users
-router.get('/users', passport.authenticate('jwt', cfg.jwtSession), find);
-router.post('/users', createOne);
+router.get('/users', passport.authenticate('jwt', { session: false }), find);
+
 
 // A list
-router.get('/users/:id', passport.authenticate('jwt', cfg.jwtSession), findOne);
-router.delete('/users/:id', deleteOne);
-router.patch('/users/:id', updateOne);
+router.get('/users/:userEmail', passport.authenticate('jwt', cfg.jwtSession), findOne);
+router.delete('/users/:userEmail', deleteOne);
+router.patch('/users/:userEmail', updateOne);
 
 // Get token
-router.post('/users/token', findUser);
+router.post('/users/signup', createOne);
+router.post('/users/login', findUser);
 export default router;

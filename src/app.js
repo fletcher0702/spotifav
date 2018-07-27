@@ -6,6 +6,8 @@ import path from 'path';
 import passport from 'passport';
 import router from './routes';
 import apiRouter from './api';
+import notFoundMiddleware from './middleware/notFound';
+import errorsMiddleware from './middleware/errors';
 
 const app = express();
 
@@ -29,6 +31,11 @@ app.use(passport.initialize());
 
 app.use('', router);
 app.use('/api', apiRouter);
+
+app.use(
+  notFoundMiddleware,
+  errorsMiddleware,
+);
 
 app.listen(config.get('port'), () => {
   console.log('You Now Listening on port 3000');

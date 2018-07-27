@@ -1,8 +1,8 @@
-import listsServices from '../../../modules/users/services';
+import usersServices from '../../../modules/users/services';
 
 export default function (req, res, next) {
-  return listsServices
-    .deleteOne(req.params.id)
+  return usersServices
+    .deleteOne(req.params.email)
     .then(response => res.send(response))
     .catch(err => next(err));
 }

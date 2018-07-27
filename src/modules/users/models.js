@@ -5,6 +5,7 @@ const model = joi.object().keys({
   lastName: joi.string(),
   email: joi.string().required(),
   password: joi.string().required(),
+  isAdmin: joi.boolean(),
 });
 
 export const modelForUpdate = joi.object().keys({
