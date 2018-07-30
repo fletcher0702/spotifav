@@ -19,7 +19,6 @@ const router = Router();
 router.use(passport.initialize());
 
 const strategy = new Strategy(opts, ((payload, done) => {
-  console.log(payload);
   listsServices
     .findOne(payload)
     .then(user => done(null, user))

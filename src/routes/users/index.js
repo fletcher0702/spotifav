@@ -34,7 +34,6 @@ passport.deserializeUser((id, done) => {
 });
 
 const views = {
-
   home: 'index',
   subscribe: 'subscribe',
   login: 'login',
