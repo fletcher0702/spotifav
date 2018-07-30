@@ -11,7 +11,6 @@ class UsersServices {
   }
 
   createOne(data) {
-    if (this.findOne(data.email)) throw errors.alreadyExist();
     const testValidate = joi.validate(data, model);
     testValidate.value.password = sha1(testValidate.value.password);
     return joi.validate(data, model).then(validatedData => clients.mongodb()
@@ -46,9 +45,9 @@ class UsersServices {
     return joi.validate(userEmail, joi.string().required())
       .then(() => clients.mongodb())
       .then(db => db.collection(this.COLLECTION_NAME).findOne({ email: userEmail }))
-      .then((list) => {
-        if (!list) throw errors.notFound();
-        return list;
+      .then((user) => {
+        if (!user) throw errors.notFound();
+        return user;
       });
   }
 
