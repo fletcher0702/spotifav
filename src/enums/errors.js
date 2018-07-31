@@ -9,7 +9,22 @@ function alreadyExist() {
   error.status = 409;
   return error;
 }
+
+function forbidden() {
+  const error = new Error('Access forbidden');
+  error.status = 403;
+  return error;
+}
+
+function unauthorized() {
+  const error = new Error('Unauthorized');
+  error.status = 401;
+  return error;
+}
+
 export default {
   notFound,
   alreadyExist,
+  forbidden,
+  unauthorized,
 };

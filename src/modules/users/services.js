@@ -1,5 +1,6 @@
 import joi from 'joi';
 import sha1 from 'sha1';
+import bcrypt from 'bcrypt';
 import clients from '../../clients';
 import model, { modelForUpdate } from './models';
 import errors from '../../enums/errors';
@@ -11,8 +12,7 @@ class UsersServices {
   }
 
   createOne(data) {
-    const testValidate = joi.validate(data, model);
-    testValidate.value.password = sha1(testValidate.value.password);
+    data.password = bcrypt.hashSync(data.password, 8);
     return joi.validate(data, model).then(validatedData => clients.mongodb()
       .then(db => db.collection(this.COLLECTION_NAME).insertOne(validatedData))
       .then(response => response.ops[0]));
@@ -55,9 +55,10 @@ class UsersServices {
     return joi.validate(userEmail, joi.string().required())
       .then(() => clients.mongodb())
       .then(db => db.collection(this.COLLECTION_NAME)
-        .findOne({ email: userEmail, password: userPassword }))
+        .findOne({ email: userEmail }))
       .then((user) => {
         if (!user) throw errors.notFound();
+        if (!bcrypt.compareSync(userPassword, user.password)) throw errors.unauthorized();
         return user;
       });
   }
@@ -81,6 +82,16 @@ class UsersServices {
         return response;
       })
       .then(() => this.findOne(userEmail));
+  }
+
+  isAdmin(userEmail) {
+    return joi.validate(userEmail, joi.string().required())
+      .then(() => clients.mongodb())
+      .then(db => db.collection(this.COLLECTION_NAME).findOne({ email: userEmail }))
+      .then((user) => {
+        if (!user.isAdmin) throw errors.forbidden();
+        return user.isAdmin;
+      });
   }
 }
 
