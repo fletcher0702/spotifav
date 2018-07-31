@@ -22,7 +22,6 @@ passport.use(new LocalStrategy({
 }));
 
 passport.serializeUser((user, done) => {
-  console.log(user);
   done(null, user._id);
 });
 

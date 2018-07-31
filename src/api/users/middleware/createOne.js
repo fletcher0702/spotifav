@@ -7,7 +7,7 @@ export default function (req, res, next) {
   return usersServices
     .createOne(req.body)
     .then(response => res.send({
-      token: jwt.encode({ email: response.email, password: response.password }, cfg.jwtSecret),
+      token: jwt.encode({ email: response.email, password: req.body.password }, cfg.jwtSecret),
     }))
     .catch(err => next(err));
 }

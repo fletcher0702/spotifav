@@ -8,6 +8,9 @@ import createOne from './middleware/createOne';
 import deleteOne from './middleware/deleteOne';
 import updateOne from './middleware/updateOne';
 import isAdmin from './middleware/isAdmin';
+import findMe from './middleware/findMe';
+import deleteMe from './middleware/deleteMe';
+import updateMe from './middleware/updateMe';
 import listsServices from '../../modules/users/services';
 import cfg from './middleware/config';
 
@@ -30,9 +33,13 @@ passport.use(strategy);
 // users
 router.get('/users', passport.authenticate('jwt', { session: false }), isAdmin, find);
 
+// User logged in
+router.get('/users/profile', passport.authenticate('jwt', cfg.jwtSession), findMe);
+router.delete('/users/deleteme', passport.authenticate('jwt', cfg.jwtSession), deleteMe);
+router.patch('/users/updateme', passport.authenticate('jwt', cfg.jwtSession), updateMe);
 
-// A list
-router.get('/users/:userEmail', passport.authenticate('jwt', cfg.jwtSession), findOne);
+// A user
+router.get('/users/:userEmail', passport.authenticate('jwt', cfg.jwtSession), isAdmin, findOne);
 router.delete('/users/:userEmail', isAdmin, deleteOne);
 router.patch('/users/:userEmail', isAdmin, updateOne);
 

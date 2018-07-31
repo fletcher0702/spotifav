@@ -1,5 +1,4 @@
 import joi from 'joi';
-import sha1 from 'sha1';
 import bcrypt from 'bcrypt';
 import clients from '../../clients';
 import model, { modelForUpdate } from './models';
@@ -42,6 +41,8 @@ class UsersServices {
   }
 
   findOne(userEmail) {
+    console.log(userEmail);
+
     return joi.validate(userEmail, joi.string().required())
       .then(() => clients.mongodb())
       .then(db => db.collection(this.COLLECTION_NAME).findOne({ email: userEmail }))
@@ -64,7 +65,6 @@ class UsersServices {
   }
 
   updateOne(userEmail, data) {
-    if (this.findOne(data.email)) throw errors.alreadyExist();
     return joi.validate(userEmail, joi.string().required())
       .then(() => joi.validate(data, modelForUpdate))
       .then((validatedData) => {
