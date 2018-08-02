@@ -4,35 +4,66 @@ HOST: http://localhost:3000
 # Spotifav App
 
 # Group Users
-## Get users [GET /users{?first}{?offset}{?term}]
+## Get users [GET api/users{?first}{?offset}{?term}]
 + Response 200 (application/json)
   + Attributes (array[User])
++ Response 403 (application/json)
++ Response 401 (application/json)
 
-## Create a user [POST /users]
+## Create a user [POST api/signup]
 + Body
-  `{ firstName: "john", email: "john.doe@gmail.com" }`
+  `{ email: "john.doe@mail.com", password: "hello" }`
++ Response 200 (application/json)
+
+## Get connected user [GET api/users/profile]
++ Response 200 (application/json)
+  + Attributes (array[User])
++ Response 404 (application/json)
++ Response 403 (application/json)
++ Response 401 (application/json)
+
+## Delete connected user [DELETE api/users/deleteme]
 + Response 200 (application/json)
   + Attributes (User)
++ Response 404 (application/json)
++ Response 403 (application/json)
++ Response 401 (application/json)
+
+## Update connected user [PATCH api/users/updateme]
++ Body
+  `{ firstName: "john", lastName: "doe" }`
++ Response 200 (application/json)
+  + Attributes (User)
++ Response 404 (application/json)
++ Response 403 (application/json)
++ Response 401 (application/json)
+
+## Get token of a user [POST api/users/login]
++ Body
+  `{ email: "john.doe@mail.com", password: "hello" }`
++ Response 200 (application/json)
++ Response 404 (application/json)
 
 ## Manage a user [/users/{userEmail}]
 ### Get a user [GET]
 + Response 200 (application/json)
   + Attributes (User)
 + Response 404 (application/json)
++ Response 403 (application/json)
 
-### Update a user [PATCH]
+### Update a user [PATCH /users/{userEmail}]
 + Body
   `{ firstName: "john", lastName: "doe" }`
 + Response 200 (application/json)
   + Attributes (User)
 + Response 404 (application/json)
++ Response 403 (application/json)
 
-### Delete a user [DELETE]
+### Delete a user [DELETE /users/{userEmail}]
 + Response 200 (application/json)
   + Attributes (User)
 + Response 404 (application/json)
-
-
++ Response 403 (application/json)
 
 # Data Structures
 

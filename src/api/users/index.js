@@ -30,6 +30,10 @@ const strategy = new Strategy(opts, ((payload, done) => {
 }));
 passport.use(strategy);
 
+// Get token
+router.post('/users/signup', createOne);
+router.post('/users/login', findUser);
+
 // users
 router.get('/users', passport.authenticate('jwt', { session: false }), isAdmin, find);
 
@@ -40,10 +44,8 @@ router.patch('/users/updateme', passport.authenticate('jwt', cfg.jwtSession), up
 
 // A user
 router.get('/users/:userEmail', passport.authenticate('jwt', cfg.jwtSession), isAdmin, findOne);
-router.delete('/users/:userEmail', isAdmin, deleteOne);
-router.patch('/users/:userEmail', isAdmin, updateOne);
+router.delete('/users/:userEmail', passport.authenticate('jwt', cfg.jwtSession), isAdmin, deleteOne);
+router.patch('/users/:userEmail', passport.authenticate('jwt', cfg.jwtSession), isAdmin, updateOne);
 
-// Get token
-router.post('/users/signup', createOne);
-router.post('/users/login', findUser);
+
 export default router;
