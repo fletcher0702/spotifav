@@ -1,4 +1,3 @@
-// import express from 'express';
 import { Router } from 'express';
 import createOne from './users/middleware/createOne';
 
@@ -21,18 +20,28 @@ router.get('/users', (request, response) => {
 });
 router.post('/users', createOne);
 
+
 router.get('/home', (request, response) => {
   response.render(views.home, { title: 'Acceuil', albums: '/albums' });
 });
 
-router.post('/home', (request, response) => {
-  response.render(views.home);
-});
+router.post('/home', createOne);
 
 router.get('/login', (request, response) => {
   console.log(request.body);
 
   response.render(views.login, { home: '/home', title: 'Acceuil' });
+});
+
+router.post('/login', (request, response, next) => {
+  const mail = request.body.email;
+  const pwd = request.body.password;
+
+  if (mail == null || pwd == null) {
+    return next(400);
+  }
+
+  return next();
 });
 
 router.post('/', (request, response) => {

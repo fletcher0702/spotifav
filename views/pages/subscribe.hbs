@@ -1,27 +1,28 @@
 
+<div id="facebook-btn" class="ui center aligned basic segment">
+  <button class="ui inverted blue animated button">
+    <div class="visible content">Se connecter avec Facebook</div>
+    <div class="hidden content">
+      <i class="facebook large icon"></i>
+    </div>
+  </button>
+<div class="ui horizontal divider">
+  Ou
+</div>
+
+<h1> Inscrivez-vous avec votre adresse email </h1>
+</div>
   <form action={{home}} method="post" class="ui center form authenticate">
 
-    <div class="ui center aligned basic segment">
-      <button class="ui inverted blue animated button">
-        <div class="visible content">Se connecter avec Facebook</div>
-        <div class="hidden content">
-          <i class="facebook large icon"></i>
-        </div>
-      </button>
-    <div class="ui horizontal divider">
-      Ou
-    </div>
 
-    <h1> Inscrivez-vous avec votre adresse email </h1>
-  </div>
     <div class="field tiny center">
       <label>Nom</label>
-      <input type="text" name="last-name" placeholder="Nom">
+      <input type="text" name="lastname" placeholder="Nom">
     </div>
 
     <div class="field tiny center">
       <label>Prenom</label>
-      <input type="text" name="first-name" placeholder="Prénom">
+      <input type="text" name="firstname" placeholder="Prénom">
     </div>
 
     <div class="field tiny center">
@@ -33,9 +34,9 @@
       <input type="password" name="password" placeholder="Mot de passe">
     </div>
 
-    <div class="field">
+  <div class="field">
       <label>Confirmer le mot de passe</label>
-      <input type="password" name="confirmed-password" placeholder="Confirmation mot de passe">
+      <input type="password" name="confirmedpwd" placeholder="Confirmation mot de passe">
     </div>
     <div class="field">
       <div class="ui checkbox">
@@ -44,7 +45,7 @@
       </div>
     </div>
     <button type="submit" id="btn-form" class="ui inverted green animated button right">
-      <div class="visible content">Se connecter</div>
+      <div class="visible content">S'inscrire</div>
       <div class="hidden content">
         <i class="right arrow icon"></i>
       </div>
