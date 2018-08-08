@@ -23,6 +23,7 @@
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
     "joi": "^13.4.0",
+    "jsonwebtoken": "^8.3.0",
     "jwt-simple": "^0.5.1",
     "mongodb": "^3.1.1",
     "nvm": "0.0.4",
