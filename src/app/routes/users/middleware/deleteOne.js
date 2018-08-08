@@ -1,4 +1,4 @@
-import listsServices from '../../../modules/users/services';
+import listsServices from '../../../../modules/users/services';
 
 export default function (req, res, next) {
   return listsServices

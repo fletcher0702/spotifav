@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import hbs from 'express-handlebars';
 import path from 'path';
 import passport from 'passport';
-import router from './routes';
+import router from './app/routes';
 import apiRouter from './api';
 import notFoundMiddleware from './middleware/notFound';
 import errorsMiddleware from './middleware/errors';
@@ -16,7 +16,7 @@ app.engine('hbs', hbs({
   extname: 'hbs', defaultLayout: 'layout', layoutsDir: path.join(__dirname, '../views/layouts/'), partialsDir: path.join(__dirname, '../views/partials/'),
 }));
 
-// set the view engine to ejs
+// set the view engine to hbs
 app.set('views', path.join(__dirname, '../views/pages/'));
 app.set('view engine', '.hbs');
 

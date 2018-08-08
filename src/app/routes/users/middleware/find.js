@@ -1,4 +1,4 @@
-import usersServices from '../../../modules/users/services';
+import usersServices from '../../../../modules/users/services';
 
 export default function getLists(req, res, next) {
   const {

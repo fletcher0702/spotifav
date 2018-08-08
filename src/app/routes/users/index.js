@@ -3,7 +3,7 @@ import { Router } from 'express';
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
 import createOne from './middleware/createOne';
-import listsServices from '../../modules/users/services';
+import listsServices from '../../../modules/users/services';
 
 
 const router = Router();

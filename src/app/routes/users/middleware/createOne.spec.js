@@ -2,7 +2,7 @@ import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import createOne from './createOne';
-import usersServices from '../../../modules/users/services';
+import usersServices from '../../../../modules/users/services';
 
 chai.use(sinonChai);
 
