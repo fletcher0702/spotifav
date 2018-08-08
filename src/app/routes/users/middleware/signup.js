@@ -1,9 +1,9 @@
 export default function(req, res) {
 
   // Params
-  var email    = req.body.email;
-  var username = req.body.username;
-  var password = req.body.password;
+  const email    = req.body.email;
+  const username = req.body.username;
+  const password = req.body.password;
   var bio      = req.body.bio;
 
   if (email == null || username == null || password == null) {
