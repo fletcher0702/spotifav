@@ -11,6 +11,15 @@ import errorsMiddleware from './middleware/errors';
 
 const app = express();
 
+// global variables for links, will be used by the layout
+app.locals.home = '/home';
+app.locals.login = false;
+app.locals.loginAction = '/login';
+app.locals.albums = '/albums';
+app.locals.profil = '/profil';
+app.locals.logout = '/logout';
+app.locals.signup = '/signup';
+
 // Setting default location of layout template
 app.engine('hbs', hbs({
   extname: 'hbs', defaultLayout: 'layout', layoutsDir: path.join(__dirname, '../views/layouts/'), partialsDir: path.join(__dirname, '../views/partials/'),
@@ -38,6 +47,6 @@ app.use(
 );
 
 app.listen(config.get('port'), () => {
-  console.log('You Now Listening on port 3000');
+  console.log('You now listening on port 3000');
 });
 export default app;

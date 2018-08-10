@@ -1,5 +1,13 @@
 
-  <form action={{login}} method="post" class="ui form authenticate">
+  {{#if errorMessage }}
+    <div id="warning" class="ui warning message">
+      <i class="close icon"></i>
+      <div class="header">
+        Email ou Mot de passe incorrect
+      </div>
+    </div>
+  {{/if}}
+  <form action={{loginAction}} method="post" class="ui form authenticate">
 
     <div class="ui center aligned basic segment">
       <a href="www.facebook.com" class="ui inverted blue animated button">
@@ -34,5 +42,9 @@
         <i class="right arrow icon"></i>
       </div>
     </button>
-
   </form>
+
+  <script>
+
+
+  </script>

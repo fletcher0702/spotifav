@@ -15,10 +15,6 @@ export default function (request, response) {
 
   return userServices
     .findOne(mail)
-    .then((userFound) => {
-      if (bcrypt.compareSync(pwd, userFound.password)) {
-        return userFound;
-      }
-      return response.status(400);
-    });
+    .then((userFound) => userFound)
+    .catch(err => err);
 }

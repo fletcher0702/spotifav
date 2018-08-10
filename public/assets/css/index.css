@@ -128,3 +128,14 @@ transform: translate(-50%, -50%);
 
   border-radius: 0 20px 20px 0;
 }
+
+#attachedSignedUp {
+  background-color: white;
+}
+
+#warning{
+  position: relative;
+  margin-top: 5%;
+  width: 50%;
+  margin-left: 25%;
+}
