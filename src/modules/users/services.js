@@ -41,13 +41,11 @@ class UsersServices {
   }
 
   findOne(userEmail) {
-    console.log(userEmail);
 
     return joi.validate(userEmail, joi.string().required())
       .then(() => clients.mongodb())
       .then(db => db.collection(this.COLLECTION_NAME).findOne({ email: userEmail }))
       .then((user) => {
-        if (!user) throw errors.notFound();
         return user;
       });
   }
@@ -58,7 +56,6 @@ class UsersServices {
       .then(db => db.collection(this.COLLECTION_NAME)
         .findOne({ email: userEmail }))
       .then((user) => {
-        if (!user) throw errors.notFound();
         if (!bcrypt.compareSync(userPassword, user.password)) throw errors.unauthorized();
         return user;
       });
@@ -89,7 +86,6 @@ class UsersServices {
       .then(() => clients.mongodb())
       .then(db => db.collection(this.COLLECTION_NAME).findOne({ email: userEmail }))
       .then((user) => {
-        if (!user.isAdmin) throw errors.forbidden();
         return user.isAdmin;
       });
   }

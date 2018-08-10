@@ -4,7 +4,7 @@ import bodyParser from 'body-parser';
 import hbs from 'express-handlebars';
 import path from 'path';
 import passport from 'passport';
-import router from './app/routes';
+import appRouter from './app/routes';
 import apiRouter from './api';
 import notFoundMiddleware from './middleware/notFound';
 import errorsMiddleware from './middleware/errors';
@@ -29,7 +29,7 @@ app.use(express.static('public'));
 
 app.use(passport.initialize());
 
-app.use('', router);
+app.use('', appRouter);
 app.use('/api', apiRouter);
 
 app.use(

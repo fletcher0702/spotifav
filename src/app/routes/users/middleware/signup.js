@@ -1,71 +1,40 @@
-export default function(req, res) {
 
+// import asyncLib from 'async';
+import userServices from '../../../../modules/users/services';
+
+// Constants
+const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+/* const PASSWORD_REGEX = /^(?=.*\d).{4,8}$/; */
+
+export default function (req, res, next) {
   // Params
-  const email    = req.body.email;
-  const username = req.body.username;
-  const password = req.body.password;
-  var bio      = req.body.bio;
+  const mail = req.body.email;
+  const pwd = req.body.password;
+  const confirmedPwd = req.body.confirmedPassword;
 
-  if (email == null || username == null || password == null) {
-    return res.status(400).json({ 'error': 'missing parameters' });
+
+  if (mail == null || pwd == null || confirmedPwd == null) {
+    return res.status(400).json({ error: 'missing parameters' });
   }
 
-  if (username.length >= 13 || username.length <= 4) {
-    return res.status(400).json({ 'error': 'wrong username (must be length 5 - 12)' });
+  if (pwd !== confirmedPwd) {
+    return res.status(400).json({ error: 'different password' });
   }
 
-  if (!EMAIL_REGEX.test(email)) {
-    return res.status(400).json({ 'error': 'email is not valid' });
-  }
+  // Deleting confirmation password field
+  delete req.body.confirmedPassword;
 
-  if (!PASSWORD_REGEX.test(password)) {
-    return res.status(400).json({ 'error': 'password invalid (must length 4 - 8 and include 1 number at least)' });
+  if (!EMAIL_REGEX.test(mail)) {
+    return res.status(400).json({ error: 'email is not valid' });
   }
-
-  asyncLib.waterfall([
-    function(done) {
-      models.User.findOne({
-        attributes: ['email'],
-        where: { email: email }
-      })
-        .then(function(userFound) {
-          done(null, userFound);
-        })
-        .catch(function(err) {
-          return res.status(500).json({ 'error': 'unable to verify user' });
-        });
-    },
-    function(userFound, done) {
-      if (!userFound) {
-        bcrypt.hash(password, 5, function( err, bcryptedPassword ) {
-          done(null, userFound, bcryptedPassword);
-        });
-      } else {
-        return res.status(409).json({ 'error': 'user already exist' });
+  return userServices
+    .findOne(mail)
+    .then((userFound) => {
+      if (userFound == null) {
+        return userServices
+          .createOne(req.body)
+          .then(createdUser => createdUser);
       }
-    },
-    function(userFound, bcryptedPassword, done) {
-      var newUser = models.User.create({
-        email: email,
-        username: username,
-        password: bcryptedPassword,
-        bio: bio,
-        isAdmin: 0
-      })
-        .then(function(newUser) {
-          done(newUser);
-        })
-        .catch(function(err) {
-          return res.status(500).json({ 'error': 'cannot add user' });
-        });
-    }
-  ], function(newUser) {
-    if (newUser) {
-      return res.status(201).json({
-        'userId': newUser.id
-      });
-    } else {
-      return res.status(500).json({ 'error': 'cannot add user' });
-    }
-  });
+    })
+    .catch(err => {});
 }
