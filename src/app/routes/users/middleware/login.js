@@ -21,3 +21,8 @@ export default function (request, email, password, done) {
       }
     }).catch(err => err);
 }
+
+export const isLogged = function (request, response, next) {
+  if (request.isAuthenticated()) next();
+  else response.redirect('/login');
+};
