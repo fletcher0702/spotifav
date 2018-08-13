@@ -1,11 +1,20 @@
 
   {{#if errorMessage }}
-    <div id="warning" class="ui warning message">
+    <div id="warning" class="ui negative message">
       <i class="close icon"></i>
       <div class="header">
-        Email ou Mot de passe incorrect
+        {{ message }}
       </div>
     </div>
+
+    {{else errorMessage}}
+    <div id="warning" class="ui positive message">
+      <i class="close icon"></i>
+      <div class="header">
+        {{ message }}
+      </div>
+    </div>
+
   {{/if}}
   <form action={{loginAction}} method="post" class="ui form authenticate">
 

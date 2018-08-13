@@ -1,5 +1,12 @@
-
-  <form action={{home}} method="post" class="ui center form authenticate">
+  {{#if errorMessage }}
+    <div id="warning" class="ui negative message">
+      <i class="close icon"></i>
+      <div class="header">
+        {{ message }}
+      </div>
+    </div>
+  {{/if}}
+  <form action={{signup}} method="post" class="ui center form authenticate">
 
     <div class="ui center aligned basic segment">
       <button class="ui inverted blue animated button">

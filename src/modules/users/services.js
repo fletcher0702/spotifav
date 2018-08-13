@@ -1,8 +1,10 @@
 import joi from 'joi';
 import bcrypt from 'bcrypt';
+import { ObjectId } from 'mongodb';
 import clients from '../../clients';
 import model, { modelForUpdate } from './models';
 import errors from '../../enums/errors';
+
 
 
 class UsersServices {
@@ -47,6 +49,16 @@ class UsersServices {
       .then(db => db.collection(this.COLLECTION_NAME).findOne({ email: userEmail }))
       .then((user) => {
         return user;
+      });
+  }
+
+  findOneById(id) {
+    return joi.validate(id, joi.string().required())
+      .then(() => clients.mongodb())
+      .then(db => db.collection(this.COLLECTION_NAME).findOne({ _id: ObjectId(id) }))
+      .then((userFound) => {
+
+        return userFound;
       });
   }
 

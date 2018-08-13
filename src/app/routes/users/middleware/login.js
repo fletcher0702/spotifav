@@ -1,20 +1,23 @@
 import bcrypt from 'bcrypt';
 import userServices from '../../../../modules/users/services';
-import jwtUtils from '../../../utils/jwt.utils';
 
+export default function (request, email, password, done) {
+  userServices
+    .findOne(email)
+    .then((user) => {
+      if (user !== null) {
+        const hash = user.password;
 
-export default function (request, response) {
-  const mail = request.body.email;
-  const pwd = request.body.password;
+        bcrypt.compare(password, hash, (err, res) => {
+          if (err) done(null, false);
 
-  console.log(`Email : ${mail}`);
+          console.log('Matched password');
 
-  if (mail == null || pwd == null) {
-    return response.send(400);
-  }
-
-  return userServices
-    .findOne(mail)
-    .then((userFound) => userFound)
-    .catch(err => err);
+          done(null, user);
+        });
+      } else {
+        console.log('Can\'t login');
+        done(null, false);
+      }
+    }).catch(err => err);
 }

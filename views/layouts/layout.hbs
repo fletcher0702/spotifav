@@ -20,16 +20,16 @@
       <img class="ui avatar image" src="/assets/images/spotify.png"><span id="logo"><b>SpotiFav</b></span>
       </a>
 
-      {{#if login }}
+
 
         <a href={{home}} class="item right">Acceuil</a>
         <a href={{albums}} class="item">Gallerie</a>
+        {{#if isAuthenticated }}
         <a href={{profil}} class="item">Profil</a>
         <a href={{logout}} class="item">Se déconnecter</a>
 
-      {{else}}
-        <a href={{home}} class="item right">Acceuil</a>
-        <a href={{albums}} class="item">Gallerie</a>
+        {{else}}
+
         <a href={{signup}} class="item">S'inscrire</a>
         <a href={{loginAction}} class="item">Se connecter</a>
       {{/if}}

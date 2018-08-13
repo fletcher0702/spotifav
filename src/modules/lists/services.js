@@ -40,7 +40,7 @@ class ListsServices {
       });
   }
 
-  findOne(id) {
+  findOneById(id) {
     return joi.validate(id, joi.string().required())
       .then(() => clients.mongodb())
       .then(db => db.collection(this.COLLECTION_NAME).findOne({ _id: ObjectId(id) }))
