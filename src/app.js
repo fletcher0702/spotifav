@@ -20,6 +20,7 @@ app.locals.login = false;
 app.locals.loginAction = '/login';
 app.locals.albums = '/albums';
 app.locals.profil = '/profil';
+app.locals.profilPassword = '/profil/password/update/';
 app.locals.logout = '/logout';
 app.locals.signup = '/signup';
 app.locals.views = {

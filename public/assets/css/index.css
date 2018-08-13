@@ -156,3 +156,8 @@ transform: translate(-50%, -50%);
 #results {
   position: relative;
 }
+
+#personnal-informations {
+  margin-top: 3%;
+  margin-left: 25%;
+}

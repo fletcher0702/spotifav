@@ -2,9 +2,8 @@ import joi from 'joi';
 import bcrypt from 'bcrypt';
 import { ObjectId } from 'mongodb';
 import clients from '../../clients';
-import model, { modelForUpdate } from './models';
+import model, { modelForUpdate, modelForPasswordUpdate } from './models';
 import errors from '../../enums/errors';
-
 
 
 class UsersServices {
@@ -43,7 +42,6 @@ class UsersServices {
   }
 
   findOne(userEmail) {
-
     return joi.validate(userEmail, joi.string().required())
       .then(() => clients.mongodb())
       .then(db => db.collection(this.COLLECTION_NAME).findOne({ email: userEmail }))
@@ -57,7 +55,6 @@ class UsersServices {
       .then(() => clients.mongodb())
       .then(db => db.collection(this.COLLECTION_NAME).findOne({ _id: ObjectId(id) }))
       .then((userFound) => {
-
         return userFound;
       });
   }
@@ -76,6 +73,27 @@ class UsersServices {
   updateOne(userEmail, data) {
     return joi.validate(userEmail, joi.string().required())
       .then(() => joi.validate(data, modelForUpdate))
+      .then((validatedData) => {
+        return clients.mongodb()
+          .then(db => db
+            .collection(this.COLLECTION_NAME)
+            .updateOne(
+              { email: userEmail },
+              { $set: validatedData },
+            ));
+      })
+      .then((response) => {
+        if (response.matchedCount === 0) throw errors.notFound();
+
+        return response;
+      })
+      .then(() => this.findOne(userEmail));
+  }
+
+  updateOnePassword(userEmail, data) {
+    data.password = bcrypt.hashSync(data.password, 8);
+    return joi.validate(userEmail, joi.string().required())
+      .then(() => joi.validate(data, modelForPasswordUpdate))
       .then((validatedData) => {
         return clients.mongodb()
           .then(db => db

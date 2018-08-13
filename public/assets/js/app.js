@@ -5,3 +5,4 @@ $('.message .close')
       .transition('fade');
   });
 $(document).ready(() => { $('.rating').rating(); });
+$('.tabular.menu .item').tab();

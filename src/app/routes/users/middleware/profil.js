@@ -1,27 +1,34 @@
-import jwtUtils from '../../../utils/jwt.utils';
+
 import userServices from '../../../../modules/users/services';
+import app from '../../../../app';
 
 export default function (request, response) {
+  request.body.email = request.user.email;
 
-  if ( app.locals.login && ( app.locals.jwtToken !== null )){
 
-    const headerAuth = app.locals.jwtToken;
-    const userId = jwtUtils.getUserId(headerAuth);
+  const mail = request.user.email;
 
-    if (userId < 0) return response.render('profil', { message: 'Vous n\'êtes pas autorisé à accéder !' });
-
-    return response.render('profil', { message: 'autorisé à accéder !' });
-  }else {
-    return response.render('profil', { message: 'Vous n\'êtes pas autorisé à accéder !' });
-  }
-
-  /*return userServices
-    .findOneById(userId)
-    .then((userFound) => {
-      if (userFound !== null) {
-        return userFound;
-      }
-
-      return null;
-    });*/
+  return userServices
+    .updateOne(mail, request.body)
+    .then(updateRes => response.redirect(app.locals.profil))
+    .catch(err => console.log(err));
 }
+
+export const passwordUpdate = function (request, response) {
+  const mail = request.user.email;
+  const pwd = request.body.password;
+  const confirmedPwd = request.body.confirmedPassword;
+
+  console.log('Update password...');
+
+  if (pwd === '' || confirmedPwd === '') response.render(app.locals.views.profil, { errorMessage: true, message: 'Champ(s) vide(s)' });
+
+  if (pwd !== confirmedPwd) response.render(app.locals.views.profil, { errorMessage: true, message: 'Erreur mot de passe différents' });
+
+  delete request.body.confirmedPassword;
+  request.body.email = mail;
+  return userServices
+    .updateOnePassword(mail, request.body)
+    .then(res => response.render(app.locals.views.profil, { errorMessage: false, message: 'Mot de passe mis à jour !' }))
+    .catch(err => console.log(err));
+};

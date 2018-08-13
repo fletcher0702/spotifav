@@ -5,6 +5,7 @@ import signup from './users/middleware/signup';
 import login from './users/middleware/login';
 import userServices from '../../modules/users/services';
 import profil from './users/middleware/profil';
+import { passwordUpdate } from './users/middleware/profil';
 import jwtUtils from '../utils/jwt.utils';
 import app from '../../app';
 
@@ -115,11 +116,18 @@ router.get('/logout', (request, response) => {
   response.redirect(app.locals.home);
 });
 
-router.get('/profil', (request, response, next) => {
-  isLogged(request, response, next);
-}, (request, response) => {
-  response.render(app.locals.views.profil, { message: `Welcome ${request.user.email}` });
+router.get('/profil', isLogged, (request, response) => {
+  const lastNameUser = request.user.lastName;
+  const firstNameUser = request.user.firstName;
+
+  console.log(`lastName connected user :${lastNameUser}`);
+  console.log(`firstName connected user :${firstNameUser}`);
+  response.render(app.locals.views.profil, { lastName: lastNameUser, firstName: firstNameUser });
 });
+
+router.post('/profil', isLogged, profil);
+
+router.post('/profil/password/update/', isLogged, passwordUpdate);
 
 
 export default router;
