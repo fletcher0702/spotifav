@@ -8,6 +8,7 @@ import passport from 'passport';
 import session from 'express-session';
 import appRouter from './app/routes';
 import apiRouter from './api';
+import { isLogged } from './app/routes/users/middleware/login';
 import sessionUtils from './app/utils/session.utils';
 import notFoundMiddleware from './middleware/notFound';
 import errorsMiddleware from './middleware/errors';
@@ -23,9 +24,11 @@ app.locals.profil = '/profil';
 app.locals.profilPassword = '/profil/password/update/';
 app.locals.logout = '/logout';
 app.locals.signup = '/signup';
+app.locals.adminPannel = '/admin/pannel/';
 app.locals.views = {
 
   home: 'index',
+  admin: 'adminPannel',
   signup: 'signup',
   logout: 'logout',
   login: 'login',
@@ -59,8 +62,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use((request, response, next) => {
   response.locals.isAuthenticated = request.isAuthenticated();
+  if (response.locals.isAuthenticated) response.locals.isAdmin = request.user.isAdmin;
   next();
 });
+
 app.use('', appRouter);
 app.use('/api', apiRouter);
 

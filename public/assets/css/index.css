@@ -9,7 +9,7 @@ body {
   flex-direction: column;
 }
 
-
+/* style for home search bar */
 input[type=text], textarea {
   -webkit-transition: all 0.30s ease-in-out;
   -moz-transition: all 0.30s ease-in-out;
@@ -26,10 +26,12 @@ input[type=text]:focus, textarea:focus {
   border: 1px solid rgba(81, 203, 238, 1);
 }
 
+/* Allow the footer to be well positionned */
 main {
   flex: 1 0 auto;
 }
 
+/* Position authentication form, signin, signup...*/
 form.ui.form.authenticate{
 
   padding-top: 4%;
@@ -38,6 +40,7 @@ form.ui.form.authenticate{
   padding-bottom: 5%;
 
 }
+
 #btn-form{
 
   position: relative;
@@ -160,4 +163,17 @@ transform: translate(-50%, -50%);
 #personnal-informations {
   margin-top: 3%;
   margin-left: 25%;
+}
+
+div.adminPannel {
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  /* margin: auto; */
+  width: 30%;
+}
+
+#usersInPannel{
+  padding-left: 10%;
+  padding-right: 10%;
 }
