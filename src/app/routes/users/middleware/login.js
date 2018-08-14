@@ -11,12 +11,9 @@ export default function (request, email, password, done) {
         bcrypt.compare(password, hash, (err, res) => {
           if (err) done(null, false);
 
-          console.log('Matched password');
-
           done(null, user);
         });
       } else {
-        console.log('Can\'t login');
         done(null, false);
       }
     }).catch(err => err);

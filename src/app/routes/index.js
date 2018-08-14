@@ -6,6 +6,7 @@ import login, { isLogged } from './users/middleware/login';
 import userServices from '../../modules/users/services';
 import profil from './users/middleware/profil';
 import { passwordUpdate } from './users/middleware/profil';
+import admin from './users/middleware/adminPannel';
 import isAdmin from './users/middleware/isAdmin';
 import app from '../../app';
 
@@ -106,8 +107,6 @@ router.post('/profil', isLogged, profil);
 
 router.post('/profil/password/update/', isLogged, passwordUpdate);
 
-router.get('/admin/pannel/', isAdmin, (request, response) => {
-  response.render(app.locals.views.admin);
-});
+router.get('/admin/pannel/', isAdmin, admin);
 
 export default router;

@@ -26,7 +26,8 @@
         <a href={{albums}} class="item">Gallerie</a>
 
         {{#if isAdmin}}
-        <a href={{adminPannel}} class="item">Panneau Administrateur</a>
+        <a href={{adminPannel}} class="ui labeled icon item">
+  Panneau Administrateur <i class="user secret icon"></i></a>
         {{/if}}
         {{#if isAuthenticated }}
         <a href={{profil}} class="item">Profil</a>

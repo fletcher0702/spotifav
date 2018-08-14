@@ -8,7 +8,6 @@ import passport from 'passport';
 import session from 'express-session';
 import appRouter from './app/routes';
 import apiRouter from './api';
-import { isLogged } from './app/routes/users/middleware/login';
 import sessionUtils from './app/utils/session.utils';
 import notFoundMiddleware from './middleware/notFound';
 import errorsMiddleware from './middleware/errors';
@@ -75,6 +74,6 @@ app.use(
 );
 
 app.listen(config.get('port'), () => {
-  console.log('You now listening on port 3000');
+  // console.log('You now listening on port 3000');
 });
 export default app;

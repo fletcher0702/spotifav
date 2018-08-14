@@ -29,12 +29,12 @@ class UsersServices {
       });
   }
 
-  find(first = 20, offset = 0, term) {
+  find(first = 20, offset = 0) {
     return clients.mongodb()
       .then((db) => {
         return db
           .collection(this.COLLECTION_NAME)
-          .find(term ? { $text: { $search: term } } : null)
+          .find()
           .skip(offset)
           .limit(first)
           .toArray();
