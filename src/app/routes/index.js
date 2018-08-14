@@ -6,7 +6,7 @@ import login, { isLogged } from './users/middleware/login';
 import userServices from '../../modules/users/services';
 import profil from './users/middleware/profil';
 import { passwordUpdate } from './users/middleware/profil';
-import admin from './users/middleware/adminPannel';
+import admin, { deleteUserById } from './users/middleware/adminPannel';
 import isAdmin from './users/middleware/isAdmin';
 import app from '../../app';
 
@@ -108,5 +108,13 @@ router.post('/profil', isLogged, profil);
 router.post('/profil/password/update/', isLogged, passwordUpdate);
 
 router.get('/admin/pannel/', isAdmin, admin);
+
+router.get('/admin/pannel/update', (request, response) => {
+  const id = request.query.id;
+
+  // console.log(`id : ${id}`);
+});
+
+router.get('/admin/pannel/delete', isLogged, isAdmin, deleteUserById);
 
 export default router;

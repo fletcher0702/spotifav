@@ -11,17 +11,31 @@
 <div id="usersInPannel" class="ui middle aligned divided list">
   {{#each users}}
     <div class="item">
-      <button class="ui red right floated content icon button">
+      <a onclick='confirmAction("/admin/pannel/delete?id={{this._id}}")' class="ui red right floated content icon button">
         <i class="user times icon"></i>
-      </button>
+      </a>
       <div class="right floated content">
-        <button class="ui orange right floated content icon button">
+        <a onclick='confirmAction("/admin/pannel/update?id={{this._id}}")' class="ui orange right floated content icon button">
           <i class="pencil alternate icon"></i>
-        </button>
+        </a>
       </div>
       <img class="ui avatar image" src="/assets/images/user.png">
       <div class="content">
-        {{this.email}}
+        <a class="header">{{this.email}}</a>
+        <div class="meta">
+          <span>Nom : {{this.lastName}}</span>
+        </div>
+        <div class="description">
+          <span>Prénom : {{this.firstName}}</span>
+        </div>
       </div>
     </div>
   {{/each}}
+
+  <script>
+      function confirmAction(link){
+        if(confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur?')){
+          window.location.href= link;
+        }
+      }
+  </script>

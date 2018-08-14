@@ -41,6 +41,18 @@ class UsersServices {
       });
   }
 
+  findExceptCurrent(id, first = 20, offset = 0) {
+    return clients.mongodb()
+      .then((db) => {
+        return db
+          .collection(this.COLLECTION_NAME)
+          .find()
+          .skip(offset)
+          .limit(first)
+          .toArray();
+      });
+  }
+
   findOne(userEmail) {
     return joi.validate(userEmail, joi.string().required())
       .then(() => clients.mongodb())

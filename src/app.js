@@ -23,6 +23,8 @@ app.locals.profil = '/profil';
 app.locals.profilPassword = '/profil/password/update/';
 app.locals.logout = '/logout';
 app.locals.signup = '/signup';
+app.locals.deleteUser = '/admin/pannel/delete';
+app.locals.updateUserLink = '/admin/pannel/update';
 app.locals.adminPannel = '/admin/pannel/';
 app.locals.views = {
 
