@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import passport from 'passport';
 import { Router } from 'express';
 import signup from './users/middleware/signup';
@@ -10,6 +9,7 @@ import admin, {
   deleteUserById, userExist, editUser, updateUserIdentity, addUser,
 } from './users/middleware/adminPannel';
 import isAdmin from './users/middleware/isAdmin';
+import searchAlbum from './favoris/middleware/searchAlbum';
 import app from '../../app';
 
 const router = Router();
@@ -59,11 +59,10 @@ router.get('/login', (request, response) => {
 });
 
 router.post('/login', (request, response, next) => {
-
-    if (request.isAuthenticated()) {
-      response.redirect(app.locals.home);
-      done(null, false);
-    }
+  if (request.isAuthenticated()) {
+    response.redirect(app.locals.home);
+    done(null, false);
+  }
   const mail = request.body.username;
   const pwd = request.body.password;
 
@@ -76,9 +75,7 @@ passport.authenticate('local', {
   failureRedirect: '/login',
 }));
 
-router.get('/albums', (request, response) => {
-  response.render(app.locals.views.gallerie);
-});
+router.get('/albums', searchAlbum);
 
 router.get('/signup', (request, response) => {
   if (request.isAuthenticated()) {
@@ -89,7 +86,6 @@ router.get('/signup', (request, response) => {
 });
 
 router.post('/signup', (request, response, next) => {
-
   if (request.isAuthenticated()) {
     response.redirect(app.locals.home);
     done(null, false);
@@ -138,5 +134,9 @@ router.get('/admin/pannel/update', isLogged, isAdmin, userExist, editUser);
 router.post('/admin/pannel/update', isLogged, isAdmin, updateUserIdentity);
 
 router.get('/admin/pannel/delete', isLogged, isAdmin, deleteUserById);
+
+//spotify routes
+
+router.get('/albums', searchAlbum);
 
 export default router;

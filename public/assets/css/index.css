@@ -159,7 +159,7 @@ transform: translate(-50%, -50%);
 
 #fav-icon {
   position: relative;
-
+  bottom: 2vh;
   float: right;
 }
 
@@ -176,7 +176,6 @@ div.adminPannel {
   margin-top: 5%;
   margin-left: auto;
   margin-right: auto;
-  /* margin: auto; */
   width: 30%;
 }
 
@@ -200,10 +199,29 @@ div.adminPannel {
 
 #setting-title{
   position: absolute;
-
   top:10%;
   left: 50vw;
   transform: translate(-50%, -50%);
   padding-top:5%;
+
+}
+
+#albumsResults{
+  margin-top: 3%;
+  margin: 5% 5%;
+}
+
+#searchInAlbum{
+
+
+  margin-top: 3%;
+  width: 50%;
+  margin-left: 25%;
+
+}
+
+#searchInAlbumDivider{
+  width: 50%;
+  margin-left: 25%;
 
 }

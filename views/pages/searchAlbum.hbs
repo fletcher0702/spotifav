@@ -1,0 +1,49 @@
+
+
+<div id="searchInAlbum" class="ui transparent icon input">
+  <input type="text" placeholder="Search albums...">
+  <i class="search link icon"></i>
+
+</div>
+<div id="searchInAlbumDivider" class="ui divider"></div>
+
+  <div id="albumsResults">
+
+
+    {{#each results}}
+      <div id="albumElement" class="ui items">
+        <div class="item">
+
+          <div class="ui tiny image">
+            <img src="{{this.images.0.url}}">
+          </div>
+
+          <div class="content">
+
+
+            <a class="header">{{this.name}}</a>
+            <div class="meta">
+              <span>Artiste : {{this.artists.0.name}} </span>
+            </div>
+
+
+            <div class="meta">
+              <span>Date de sortie : {{this.release_date}}</span>
+              {{#if ../isAuthenticated}}
+                <div id="fav-icon" value='{{this.id}}' class="ui star massive rating" data-max-rating="1"></div>
+              {{/if}}
+            </div>
+            <div class="meta">
+              <span>Piste : {{this.total_tracks}}</span>
+            </div>
+
+
+          </div>
+        </div>
+        <div class="ui divider"></div>
+      </div>
+    {{/each}}
+  </div>
+
+
+

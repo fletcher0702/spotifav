@@ -5,7 +5,7 @@ $('.message .close')
       .transition('fade');
   });
 $(document).ready(() => { $('.rating').rating(); });
-$('.tabular.menu .item').tab();
+$('.secondary.menu .item').tab();
 $('.ui.checkbox')
   .checkbox()
 ;
