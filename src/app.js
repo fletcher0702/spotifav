@@ -30,6 +30,7 @@ app.locals.views = {
 
   home: 'index',
   admin: 'adminPannel',
+  editUser: 'editUser',
   signup: 'signup',
   logout: 'logout',
   login: 'login',

@@ -11,11 +11,11 @@
 <div id="usersInPannel" class="ui middle aligned divided list">
   {{#each users}}
     <div class="item">
-      <a onclick='confirmAction("/admin/pannel/delete?id={{this._id}}")' class="ui red right floated content icon button">
+      <a onclick='confirmAction("/admin/pannel/delete?id={{this._id}}","Êtes-vous sûr de vouloir supprimer cet utilisateur?")' class="ui red right floated content icon button">
         <i class="user times icon"></i>
       </a>
       <div class="right floated content">
-        <a onclick='confirmAction("/admin/pannel/update?id={{this._id}}")' class="ui orange right floated content icon button">
+        <a onclick='confirmAction("/admin/pannel/update?id={{this._id}}", "Êtes-vous dûr de vouloir éditer cet utilisateur?")' class="ui orange right floated content icon button">
           <i class="pencil alternate icon"></i>
         </a>
       </div>
@@ -33,8 +33,8 @@
   {{/each}}
 
   <script>
-      function confirmAction(link){
-        if(confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur?')){
+      function confirmAction(link, message){
+        if(confirm(message)){
           window.location.href= link;
         }
       }

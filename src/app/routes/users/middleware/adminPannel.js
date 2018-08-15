@@ -1,10 +1,10 @@
 import userServices from '../../../../modules/users/services';
 
 export default function (request, response) {
-  const id = request.user._id;
+  const email = request.user.email;
 
   return userServices
-    .findExceptCurrent(id)
+    .findExceptCurrent(email)
     .then((getUsers) => {
       response.locals.users = getUsers;
       const userTest = getUsers[0].email;

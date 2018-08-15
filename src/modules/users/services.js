@@ -41,14 +41,12 @@ class UsersServices {
       });
   }
 
-  findExceptCurrent(id, first = 20, offset = 0) {
+  findExceptCurrent(email) {
     return clients.mongodb()
       .then((db) => {
         return db
           .collection(this.COLLECTION_NAME)
-          .find()
-          .skip(offset)
-          .limit(first)
+          .find({ email: { $ne: email } })
           .toArray();
       });
   }
