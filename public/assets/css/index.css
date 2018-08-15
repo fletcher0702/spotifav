@@ -69,6 +69,13 @@ div.container{
   background-size: cover;
   background-position: center;
 }
+#header{
+  padding: 0.25em 0.25em;
+}
+
+#homeLogo{
+  font-weight: bolder;
+}
 
 div.ui.inverted.bottom.segement.menu.black{
 

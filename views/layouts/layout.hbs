@@ -15,15 +15,13 @@
   </head>
   <main>
   <body>
-    <div class="ui inverted segment top fixed menu black">
-      <a href="/" class="ui big image">
-      <img class="ui avatar image" src="/assets/images/spotify.png"><span id="logo"><b>SpotiFav</b></span>
-      </a>
+    <div id="header" class="ui inverted segment top fixed menu black">
+
+      <a id="homeLogo" href='{{home}}' class="item left"><img class="ui avatar image" src="/assets/images/spotify.png">Spotifav</a>
 
 
-
-        <a href={{home}} class="item right"><i class="home icon"></i>Accueil</a>
-        <a href={{albums}} class="item"><i class="music icon"></i>Gallerie</a>
+        <a href='{{home}}' class="item right"><i class="home icon"></i>Accueil</a>
+        <a href='{{albums}}' class="item"><i class="music icon"></i>Gallerie</a>
 
         {{#if isAdmin}}
         <a href={{adminPannel}} class="item">
