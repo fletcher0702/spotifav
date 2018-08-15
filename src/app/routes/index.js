@@ -59,6 +59,11 @@ router.get('/login', (request, response) => {
 });
 
 router.post('/login', (request, response, next) => {
+
+    if (request.isAuthenticated()) {
+      response.redirect(app.locals.home);
+      done(null, false);
+    }
   const mail = request.body.username;
   const pwd = request.body.password;
 
@@ -84,6 +89,11 @@ router.get('/signup', (request, response) => {
 });
 
 router.post('/signup', (request, response, next) => {
+
+  if (request.isAuthenticated()) {
+    response.redirect(app.locals.home);
+    done(null, false);
+  }
   signup(request, response, next)
     .then((userFound) => {
       if (userFound) {
