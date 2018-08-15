@@ -17,7 +17,5 @@ MongoClient.connect(url, (err, client) => {
     .then(() => client.close())
     .catch((error) => {
       client.close();
-
-      console.error(error); // eslint-disable-line no-console
     });
 });

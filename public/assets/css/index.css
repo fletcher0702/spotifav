@@ -177,3 +177,24 @@ div.adminPannel {
   padding-left: 10%;
   padding-right: 10%;
 }
+
+#adding-user{
+  width: 50%;
+  margin-left: 25%;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+#admin-label{
+  position: relative;
+  bottom: 6px;
+}
+
+#setting-title{
+  position: relative;
+  top:12vh;
+  margin-bottom: 12vh;
+  left: 40vw;
+  right: 80vw;
+
+}

@@ -6,7 +6,9 @@ import login, { isLogged } from './users/middleware/login';
 import userServices from '../../modules/users/services';
 import profil from './users/middleware/profil';
 import { passwordUpdate } from './users/middleware/profil';
-import admin, { deleteUserById } from './users/middleware/adminPannel';
+import admin, {
+  deleteUserById, userExist, editUser, updateUserIdentity, addUser,
+} from './users/middleware/adminPannel';
 import isAdmin from './users/middleware/isAdmin';
 import app from '../../app';
 
@@ -109,11 +111,21 @@ router.post('/profil/password/update/', isLogged, passwordUpdate);
 
 router.get('/admin/pannel/', isAdmin, admin);
 
-router.get('/admin/pannel/update', (request, response) => {
-  const id = request.query.id;
-
-  // console.log(`id : ${id}`);
+router.get('/admin/pannel/create', isLogged, isAdmin, (request, response) => {
+  response.render(app.locals.views.createUser);
 });
+router.post('/admin/pannel/create', isLogged, isAdmin, (request, response) => {
+  addUser(request, response)
+    .then((userFound) => {
+      if (userFound) {
+        response.render(app.locals.views.createUser, { createdUserMessage: true, message: 'Utilisateur créé !' });
+      } else {
+        response.render(app.locals.views.createUser, { createdUserError: true, message: 'Désolé le mail existe déjà :-(  ' });
+      }
+    });
+});
+router.get('/admin/pannel/update', isLogged, isAdmin, userExist, editUser);
+router.post('/admin/pannel/update', isLogged, isAdmin, updateUserIdentity);
 
 router.get('/admin/pannel/delete', isLogged, isAdmin, deleteUserById);
 

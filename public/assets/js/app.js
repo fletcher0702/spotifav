@@ -6,3 +6,6 @@ $('.message .close')
   });
 $(document).ready(() => { $('.rating').rating(); });
 $('.tabular.menu .item').tab();
+$('.ui.checkbox')
+  .checkbox()
+;

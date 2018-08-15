@@ -12,7 +12,6 @@ export default function (req, res, next) {
   const pwd = req.body.password;
   const confirmedPwd = req.body.confirmedPassword;
 
-
   if (mail == null || pwd == null || confirmedPwd == null) {
     return res.status(400).json({ error: 'missing parameters' });
   }

@@ -11,15 +11,13 @@ export default function (request, response) {
   return userServices
     .updateOne(mail, request.body)
     .then(updateRes => response.redirect(app.locals.profil))
-    .catch(err => console.log(err));
+    .catch(err => err);
 }
 
 export const passwordUpdate = function (request, response) {
   const mail = request.user.email;
   const pwd = request.body.password;
   const confirmedPwd = request.body.confirmedPassword;
-
-  console.log('Update password...');
 
   if (pwd === '' || confirmedPwd === '') response.render(app.locals.views.profil, { errorMessage: true, message: 'Champ(s) vide(s)' });
 
@@ -30,5 +28,5 @@ export const passwordUpdate = function (request, response) {
   return userServices
     .updateOnePassword(mail, request.body)
     .then(res => response.render(app.locals.views.profil, { errorMessage: false, message: 'Mot de passe mis à jour !' }))
-    .catch(err => console.log(err));
+    .catch(err => err);
 };
