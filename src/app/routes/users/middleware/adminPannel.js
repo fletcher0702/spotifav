@@ -18,8 +18,9 @@ export default function (request, response) {
 }
 
 export const deleteUserById = function (request, response) {
+  const id = request.query.id;
   const adminPannelLink = '/admin/pannel/';
-  if (id !== '') {
+  if (IdValidator.isValid(id)) {
     userServices
       .findOneById(id)
       .then((userFound) => {
@@ -35,7 +36,7 @@ export const deleteUserById = function (request, response) {
         response.redirect(adminPannelLink);
       });
   } else {
-    response.redirect('/');
+    response.redirect('/admin/pannel/');
   }
 };
 export const userExist = function (request, response, next) {
