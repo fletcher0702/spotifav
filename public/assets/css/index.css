@@ -181,6 +181,7 @@ div.adminPannel {
 }
 
 #usersInPannel{
+  padding-top: 8%;
   padding-left: 10%;
   padding-right: 10%;
 }
@@ -198,10 +199,11 @@ div.adminPannel {
 }
 
 #setting-title{
-  position: relative;
-  top:12vh;
-  margin-bottom: 12vh;
-  left: 40vw;
-  right: 80vw;
+  position: absolute;
+
+  top:10%;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  padding-top:5%;
 
 }
