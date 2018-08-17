@@ -1,7 +1,7 @@
 module.exports = {
-  port: ,
+  port: 3000,
   database: {
-    name: '',
-    url: '',
+    name: 'spotifav',
+    url: 'mongodb://admin:spotifav1@ds163119.mlab.com:63119/spotifav',
   },
 };
