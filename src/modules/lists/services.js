@@ -10,7 +10,6 @@ class ListsServices {
   }
 
   createOne(data) {
-    // console.log(data.description);
 
     return joi.validate(data, model).then(validatedData => clients.mongodb()
       .then(db => db.collection(this.COLLECTION_NAME).insertOne(validatedData))
@@ -40,7 +39,7 @@ class ListsServices {
       });
   }
 
-  findOne(id) {
+  findOneById(id) {
     return joi.validate(id, joi.string().required())
       .then(() => clients.mongodb())
       .then(db => db.collection(this.COLLECTION_NAME).findOne({ _id: ObjectId(id) }))

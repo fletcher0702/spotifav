@@ -8,9 +8,16 @@
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml
+
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
 .idea/**/shelf
+
+.idea/vcs.xml
+.idea/dictionaries
+.idea/
+*.iml
+
 
 # Sensitive or high-churn files
 .idea/**/dataSources/
@@ -181,10 +188,18 @@ typings/
 
 ### VisualStudioCode ###
 .vscode/*
+<<<<<<< HEAD
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+=======
+.vscode/settings.json
+.vscode/tasks.json
+.vscode/launch.json
+.vscode/extensions.json
+.history
+>>>>>>> spotifyApp
 
 ### VisualStudio ###
 ## Ignore Visual Studio temporary files, build results, and

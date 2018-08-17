@@ -1,0 +1,65 @@
+
+
+<div id="personnal-informations" class="ui attached tabular menu">
+  <a class="item active" data-tab="identity">Identité</a>
+  <a class="item" data-tab="passwordUpdate">Mot de passe</a>
+</div>
+
+{{#if errorMessage }}
+  <div id="warning" class="ui negative message">
+    <i class="close icon"></i>
+    <div class="header">
+      {{ message }}
+    </div>
+  </div>
+
+  {{else errorMessage}}
+  <div id="warning" class="ui positive message">
+    <i class="close icon"></i>
+    <div class="header">
+      {{ message }}
+    </div>
+  </div>
+
+{{/if}}
+<div class="ui bottom attached tab segment active" data-tab="identity">
+  <form action={{profil}} method="post" class="ui center form authenticate">
+    <div class="field tiny center">
+      <label>Nom</label>
+      <input type="text" {{#if lastName }} value={{ lastName }} {{/if}} name="lastName" placeholder="Nom">
+    </div>
+
+    <div class="field tiny center">
+      <label>Prenom</label>
+      <input type="text" {{#if firstName }} value={{ firstName }} {{/if}} name="firstName" placeholder="Prénom">
+    </div>
+
+    <button type="submit" id="btn-form" class="ui inverted green animated button right">
+      <div class="visible content">Editer</div>
+      <div class="hidden content">
+        <i class="pencil alternate icon"></i>
+      </div>
+    </button>
+  </form>
+</div>
+<div class="ui bottom attached tab segment" data-tab="passwordUpdate">
+  <form action={{profilPassword}} method="post" class="ui center form authenticate">
+
+  <div class="field">
+    <label>Mot de passe</label>
+    <input type="password" name="password" placeholder="Mot de passe">
+  </div>
+
+  <div class="field">
+    <label>Confirmer le mot de passe</label>
+    <input type="password" name="confirmedPassword" placeholder="Confirmation mot de passe">
+  </div>
+
+    <button type="submit" id="btn-form" class="ui inverted green animated button right">
+      <div class="visible content">Editer</div>
+      <div class="hidden content">
+        <i class="pencil alternate icon"></i>
+      </div>
+    </button>
+  </form>
+</div>

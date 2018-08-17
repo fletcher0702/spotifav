@@ -1,4 +1,3 @@
-
 <div id="facebook-btn" class="ui center aligned basic segment">
   <button class="ui inverted blue animated button">
     <div class="visible content">Se connecter avec Facebook</div>
@@ -12,17 +11,31 @@
 
 <h1> Inscrivez-vous avec votre adresse email </h1>
 </div>
-  <form action={{home}} method="post" class="ui center form authenticate">
+
+  {{#if errorMessage }}
+    <div id="warning" class="ui negative message">
+      <i class="close icon"></i>
+      <div class="header">
+        {{ message }}
+      </div>
+    </div>
+  {{/if}}
+  <form action={{signup}} method="post" class="ui center form authenticate">
+
 
 
     <div class="field tiny center">
       <label>Nom</label>
-      <input type="text" name="lastname" placeholder="Nom">
+
+      <input type="text" name="lastName" placeholder="Nom">
+
     </div>
 
     <div class="field tiny center">
       <label>Prenom</label>
-      <input type="text" name="firstname" placeholder="Prénom">
+
+      <input type="text" name="firstName" placeholder="Prénom">
+
     </div>
 
     <div class="field tiny center">
@@ -36,13 +49,19 @@
 
   <div class="field">
       <label>Confirmer le mot de passe</label>
-      <input type="password" name="confirmedpwd" placeholder="Confirmation mot de passe">
+
+      <input type="password" name="confirmedPassword" placeholder="Confirmation mot de passe">
+
     </div>
     <div class="field">
       <div class="ui checkbox">
         <input type="checkbox" name="checkbox">
         <label>J'accepte les termes d'utilisation.</label>
       </div>
+    </div>
+    <div id="attachedSignedUp" class="ui bottom attached message">
+      <i class="icon help"></i>
+      Déjà inscrit? <a href={{loginAction}}>Connecte toi ici</a> plutôt.
     </div>
     <button type="submit" id="btn-form" class="ui inverted green animated button right">
       <div class="visible content">S'inscrire</div>
@@ -51,3 +70,4 @@
       </div>
     </button>
   </form>
+

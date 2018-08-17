@@ -12,20 +12,32 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.3.2/semantic.min.js"></script>
 
-
-    <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
   </head>
   <main>
   <body>
-    <div class="ui inverted segment top fixed menu black">
-      <a href="/" class="ui big image">
-      <img class="ui avatar image" src="/assets/images/spotify.png"><span id="logo"><b>SpotiFav</b></span>
-      </a>
-      <a href="/" class="item right">Acceuil</a>
-      <a href="albums" class="item">Gallerie</a>
-      <a href="subscribe" class="item">S'inscrire</a>
-      <a href="login" class="item">Se connecter</a>
+    <div id="header" class="ui inverted segment top fixed menu black">
+
+      <a id="homeLogo" href='{{home}}' class="item left"><img class="ui avatar image" src="/assets/images/spotify.png">Spotifav</a>
+
+
+        <a href='{{home}}' class="item right"><i class="home icon"></i>Accueil</a>
+        <a href='{{albums}}' class="item"><i class="music icon"></i>Gallerie</a>
+
+        {{#if isAuthenticated }}
+        <a href={{favoris}} class="item"><i class="star icon"></i>Favoris</a>
+        <a href={{profil}} class="item"><i class="user icon"></i>Profil</a>
+
+          {{#if isAdmin}}
+            <a href={{adminPannel}} class="item">
+              <i class="user secret icon"></i>Administration</a>
+          {{/if}}
+        <a href={{logout}} class="item"><i class="power off icon"></i>Se déconnecter</a>
+
+        {{else}}
+
+        <a href={{signup}} class="item"><i class="plus icon"></i>S'inscrire</a>
+        <a href={{loginAction}} class="item"><i class="angle double right icon"></i>Se connecter</a>
+      {{/if}}
     </div>
 
     <div class="main">
@@ -41,5 +53,10 @@
             <span id="copyright">Copyright © 2018 <i id="flag" class="france flag"></i></span>
         </div>
     </section>
+
+  <script src="/assets/js/app.js">
+
+
+  </script>
 
 </html>

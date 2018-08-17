@@ -9,7 +9,7 @@ body {
   flex-direction: column;
 }
 
-
+/* style for home search bar */
 input[type=text], textarea {
   -webkit-transition: all 0.30s ease-in-out;
   -moz-transition: all 0.30s ease-in-out;
@@ -26,18 +26,24 @@ input[type=text]:focus, textarea:focus {
   border: 1px solid rgba(81, 203, 238, 1);
 }
 
+/* Allow the footer to be well positionned */
 main {
   flex: 1 0 auto;
 }
 
+/* Position authentication form, signin, signup...*/
 form.ui.form.authenticate{
 
+
   /* padding-top: 5%; */
+
+  padding-top: 4%;
   padding-left: 25%;
   padding-right: 25%;
   padding-bottom: 5%;
 
 }
+
 #btn-form{
 
   position: relative;
@@ -65,6 +71,13 @@ div.container{
   background: url(../images/spotify-index.png);
   background-size: cover;
   background-position: center;
+}
+#header{
+  padding: 0.25em 0.25em;
+}
+
+#homeLogo{
+  font-weight: bolder;
 }
 
 div.ui.inverted.bottom.segement.menu.black{
@@ -129,10 +142,89 @@ transform: translate(-50%, -50%);
   border-radius: 0 20px 20px 0;
 }
 
-#facebook-btn{
+#attachedSignedUp {
+  background-color: white;
+}
 
-  padding-top: 5%;
-  padding-left: 25%;
-  padding-right: 25%;
+#warning{
+  text-align: center;
+  position: relative;
+  margin-top: 5%;
+  width: 50%;
+  margin-left: 25%;
+}
+
+.error-token{
+  margin-top: 20%;
+  text-align: center;
+  font-size: 40px;
+}
+
+#fav-icon {
+  position: relative;
+  bottom: 2vh;
+  float: right;
+}
+
+#results {
+  position: relative;
+}
+
+#personnal-informations {
+  margin-top: 3%;
+  margin-left: 25%;
+}
+
+div.adminPannel {
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30%;
+}
+
+#usersInPannel{
+  padding-top: 8%;
+  padding-left: 10%;
+  padding-right: 10%;
+}
+
+#adding-user{
+  width: 50%;
+  margin-left: 25%;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+#admin-label{
+  position: relative;
+  bottom: 6px;
+}
+
+#setting-title{
+  position: absolute;
+  top:10%;
+  left: 50vw;
+  transform: translate(-50%, -50%);
+  padding-top:5%;
+
+}
+
+#albumsResults{
+  margin-top: 3%;
+  margin: 5% 5%;
+}
+
+#searchInAlbum{
+
+
+  margin-top: 3%;
+  width: 50%;
+  margin-left: 25%;
+
+}
+
+#searchInAlbumDivider{
+  width: 50%;
+  margin-left: 25%;
 
 }

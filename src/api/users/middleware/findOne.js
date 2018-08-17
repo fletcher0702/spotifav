@@ -1,8 +1,15 @@
-import listsServices from '../../../modules/users/services';
+import usersServices from '../../../modules/users/services';
 
 export default function (req, res, next) {
-  listsServices
-    .findOne(req.params.id)
-    .then(response => res.send(response))
+
+  const mail = req.params.userEmail;
+
+  return usersServices
+    .findOne(mail)
+    .then((userFound) => {
+      if (userFound === null) return res.status(401).json({ message: 'L\'utilisateur n\'existe pas !' });
+      delete userFound.password;
+      res.status(201).json(userFound);
+    })
     .catch(err => next(err));
 }

@@ -1,16 +1,34 @@
-
-<div id="facebook-btn" class="ui center aligned basic segment">
-  <a href="www.facebook.com" class="ui inverted blue animated button">
-    <div class="visible content">Se connecter avec Facebook</div>
-    <div class="hidden content">
-      <i class="facebook large icon"></i>
+ {{#if errorMessage }}
+    <div id="warning" class="ui negative message">
+      <i class="close icon"></i>
+      <div class="header">
+        {{ message }}
+      </div>
     </div>
-  </a>
-<div class="ui horizontal divider">
-  Ou
-</div>
-</div>
-  <form action={{home}} method="post" class="ui form authenticate">
+
+    {{else errorMessage}}
+    <div id="warning" class="ui positive message">
+      <i class="close icon"></i>
+      <div class="header">
+        {{ message }}
+      </div>
+    </div>
+
+  {{/if}}
+  <form action={{loginAction}} method="post" class="ui form authenticate">
+
+    <div class="ui center aligned basic segment">
+      <a href="http://www.facebook.com" class="ui inverted blue animated button">
+        <div class="visible content">Se connecter avec Facebook</div>
+        <div class="hidden content">
+          <i class="facebook large icon"></i>
+        </div>
+
+      </a>
+    <div class="ui horizontal divider">
+      Ou
+    </div>
+    </div>
 
     <div class="field">
       <label>Email</label>
@@ -23,7 +41,7 @@
 
 
     <div class="ui checkbox">
-      <input name="checkbox" type="checkbox"><!--onclick="return confirm('êtes vous sûr?');"-->
+      <input name="checkbox" type="checkbox">
       <label>Se souvenir de moi</label>
     </div>
 
@@ -33,5 +51,4 @@
         <i class="right arrow icon"></i>
       </div>
     </button>
-
   </form>

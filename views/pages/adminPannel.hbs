@@ -1,0 +1,65 @@
+<div id="setting-title">
+  <h2 class="ui header">
+    <i class="settings icon"></i>
+    <div class="content">
+      Gestion de comptes
+      <div class="sub header">Gérer vos préférences</div>
+    </div>
+  </h2>
+</div>
+
+{{#if updateMessage}}
+  <div id="warning" class="ui positive message">
+    <i class="close icon"></i>
+    <div class="header">
+      {{ message }}
+    </div>
+  </div>
+{{/if}}
+
+
+<div id="usersInPannel" class="ui middle aligned divided list">
+
+  <div class="item">
+
+    <div class="content">
+      <a class="header">{{this.email}}</a>
+      <div class="meta">
+        <a id="adding-user" onclick='confirmAction("/admin/pannel/create","Êtes-vous sûr de vouloir créer un utilisateur?")' class="ui green center content icon button">
+          <i class="user plus icon"></i>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  {{#each users}}
+    <div class="item">
+      <a onclick='confirmAction("/admin/pannel/delete?id={{this._id}}","Êtes-vous sûr de vouloir supprimer cet utilisateur?")' class="ui red right floated content icon button">
+        <i class="user times icon"></i>
+      </a>
+      <div class="right floated content">
+        <a onclick='confirmAction("/admin/pannel/update?id={{this._id}}", "Êtes-vous dûr de vouloir éditer cet utilisateur?")' class="ui orange right floated content icon button">
+          <i class="pencil alternate icon"></i>
+        </a>
+      </div>
+      <img class="ui avatar image" src="/assets/images/user.png">
+      <div class="content">
+        <a class="header">{{this.email}}</a>
+        <div class="meta">
+          <span>Nom : {{this.lastName}}</span>
+        </div>
+        <div class="description">
+          <span>Prénom : {{this.firstName}}</span>
+        </div>
+      </div>
+    </div>
+  {{/each}}
+
+  <script>
+      function confirmAction(link, message){
+        if(confirm(message)){
+          window.location.href= link;
+        }
+      }
+  </script>
