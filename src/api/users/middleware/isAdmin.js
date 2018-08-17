@@ -1,8 +1,16 @@
 import usersServices from '../../../modules/users/services';
 
-export default function (req, res, next) {
+export default function (req, res, done) {
+
   usersServices
-    .isAdmin(req.user.email)
-    .then(() => next())
-    .catch(err => next(err));
+    .findOneById(req.user.userId)
+    .then((userFound) => {
+      const admin = userFound.isAdmin;
+
+      if (admin) done(null, true);
+      else {
+        res.status(401).json({ message: 'accès interdit ! ' });
+      }
+    })
+    .catch(err => err);
 }

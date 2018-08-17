@@ -1,12 +1,11 @@
-import spotifyApi from '../../../../utils/spotify';
-
+import spotifyApi from '../../../utils/spotify';
 
 export default function (request, response) {
   let searchAlbum = '';
   let searchLimit = 1;
 
   if (typeof request.query.album === 'undefined') {
-    response.render('searchAlbum');
+    return response.status(401).json({ message: 'erreur album non spécifié' });
   }
 
   searchAlbum = request.query.album;
@@ -16,17 +15,21 @@ export default function (request, response) {
   }
 
   console.log(searchAlbum);
-  console.log(searchLimit);
 
   spotifyApi
     .searchAlbums(searchAlbum, { limit: searchLimit })
     .then((data) => {
       const searchResults = data.body.albums.items;
-      const artists = searchResults[0];
-      console.log(artists.id);
+      const results = [];
 
-      const loggedIn = request.isAuthenticated();
-      response.render('searchAlbum', { results: searchResults });
+      searchResults.forEach((album) => {
+        results.push({
+          id: album.id,
+          name: album.name,
+        });
+      });
+
+      response.status(201).json(results);
     }, (error) => {
       console.log(`Something is going wrong${error}`);
     })

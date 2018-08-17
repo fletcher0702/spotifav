@@ -23,12 +23,14 @@
         <a href='{{home}}' class="item right"><i class="home icon"></i>Accueil</a>
         <a href='{{albums}}' class="item"><i class="music icon"></i>Gallerie</a>
 
-        {{#if isAdmin}}
-        <a href={{adminPannel}} class="item">
-   <i class="user secret icon"></i>Administration</a>
-        {{/if}}
         {{#if isAuthenticated }}
+        <a href={{favoris}} class="item"><i class="star icon"></i>Favoris</a>
         <a href={{profil}} class="item"><i class="user icon"></i>Profil</a>
+
+          {{#if isAdmin}}
+            <a href={{adminPannel}} class="item">
+              <i class="user secret icon"></i>Administration</a>
+          {{/if}}
         <a href={{logout}} class="item"><i class="power off icon"></i>Se déconnecter</a>
 
         {{else}}

@@ -9,7 +9,7 @@ import session from 'express-session';
 import flash from 'connect-flash';
 import appRouter from './app/routes';
 import apiRouter from './api';
-import sessionUtils from './app/utils/session.utils';
+import sessionUtils from './utils/session.utils';
 import notFoundMiddleware from './middleware/notFound';
 import errorsMiddleware from './middleware/errors';
 
@@ -19,6 +19,7 @@ const app = express();
 app.locals.home = '/home';
 app.locals.loginAction = '/login';
 app.locals.albums = '/albums';
+app.locals.favoris = '/favoris';
 app.locals.profil = '/profil';
 app.locals.profilPassword = '/profil/password/update/';
 app.locals.logout = '/logout';

@@ -1,14 +1,22 @@
 import usersServices from '../../../modules/users/services';
 
-export default function getLists(req, res, next) {
+export default function getUsers(req, res, next) {
   const {
     first,
     offset,
-    term,
   } = req.query;
 
+  // parseInt(first, 10), parseInt(offset, 10)
   return usersServices
-    .find(parseInt(first, 10), parseInt(offset, 10), term)
-    .then(response => res.send(response))
+    .find()
+    .then((response) => {
+      const users = [];
+
+      response.forEach((element) => {
+        delete element.password;
+        users.push(element);
+      });
+      res.send(users);
+    })
     .catch(err => next(err));
 }

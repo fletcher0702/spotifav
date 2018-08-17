@@ -1,5 +1,5 @@
 import SpotifyWebApi from 'spotify-web-api-node';
-import spotifyUtils, {spotifyApiConfig} from '../../../utils/spotify.utils';
+import spotifyUtils, {spotifyApiConfig} from './spotify.utils';
 
 const spotifyApi = new SpotifyWebApi(spotifyApiConfig);
 

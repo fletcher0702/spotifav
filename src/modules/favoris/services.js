@@ -1,106 +1,121 @@
+/* eslint-disable max-len */
 import { ObjectId } from 'mongodb';
 import joi from 'joi';
 import clients from '../../clients';
-import model, { modelForUpdate } from './models';
+import model from './models';
 import errors from '../../enums/errors';
-import listsServices from '../lists/services';
+import usersServices from '../users/services';
 
-const COLLECTION_NAME = 'tasks';
 
-function createOne(listId, data) {
-  const taskData = {
-    ...data,
-    listId,
-  };
-  return joi.validate(taskData, model)
-    .then((validatedData) => {
-      return listsServices.findOne(listId).then(() => {
-        return clients.mongodb()
-          .then(db => db.collection(COLLECTION_NAME).insert(validatedData))
-          .then(response => response.ops[0]);
+class FavorisServices {
+  constructor(collectionName) {
+    this.COLLECTION_NAME = collectionName;
+  }
+
+  createOne(userId, data) {
+    const favoriteData = {
+      ...data,
+      userId,
+    };
+    return joi.validate(favoriteData, model)
+      .then((validatedData) => {
+        return usersServices.findOne(userId).then(() => {
+          return clients.mongodb()
+            .then(db => db.collection(this.COLLECTION_NAME).insert(validatedData))
+            .then(response => response.ops[0]);
+        });
       });
-    });
-}
+  }
 
-function find(listId, first = 20, offset = 0, term) {
-  return joi.validate(listId, joi.string().required())
-    .then(() => {
-      return listsServices.findOne(listId).then(() => {
-        return clients.mongodb()
-          .then((db) => {
-            return db
-              .collection(COLLECTION_NAME)
-              .find(term ? { listId, $text: { $search: term } } : { listId })
-              .skip(offset)
-              .limit(first)
-              .toArray();
-          });
+
+
+  deleteAssociatedFavorites(userIdCandidate) {
+    const parametersSchema = joi.object().keys({
+      userIdCandidate: joi.string().required(),
+    });
+
+    return joi.validate({ userIdCandidate }, parametersSchema)
+      .then(usersServices.findOneById(userIdCandidate))
+      .then(() => clients.mongodb())
+      .then(db => db.collection(this.COLLECTION_NAME).remove({ userId: userIdCandidate }))
+      .then((response) => {
+        return response.deletedCount;
       });
+  }
+
+  deleteOne(userIdCandidate, id) {
+    const parametersSchema = joi.object().keys({
+      id: joi.string().required(),
+      userIdCandidate: joi.string().required(),
     });
-}
 
-function findOne(listId, taskId) {
-  const parametersSchema = joi.object().keys({
-    listId: joi.string().required(),
-    taskId: joi.string().required(),
-  });
-
-  return joi.validate({ listId, taskId }, parametersSchema)
-    .then(() => clients.mongodb())
-    .then(db => db.collection(COLLECTION_NAME).findOne({ _id: ObjectId(taskId), listId }))
-    .then((task) => {
-      if (!task) throw errors.notFound();
-      return task;
-    });
-}
-
-function deleteOne(listId, id) {
-  const parametersSchema = joi.object().keys({
-    id: joi.string().required(),
-    listId: joi.string().required(),
-  });
-
-  return joi.validate({ id, listId }, parametersSchema)
-    .then(listsServices.findOne(listId))
-    .then(() => clients.mongodb())
-    .then(db => db.collection(COLLECTION_NAME).deleteOne({ _id: ObjectId(id), listId }))
-    .then((response) => {
-      if (response.deletedCount === 0) throw errors.notFound();
-      return response;
-    });
-}
-
-function updateOne(listId, taskId, data) {
-  const parametersSchema = joi.object().keys({
-    listId: joi.string().required(),
-    taskId: joi.string().required(),
-  });
-
-  return joi.validate({ listId, taskId }, parametersSchema)
-    .then(() => joi.validate(data, modelForUpdate))
-    .then((validatedData) => {
-      return listsServices.findOne(listId).then(() => {
-        return clients.mongodb()
-          .then(db => db
-            .collection(COLLECTION_NAME)
-            .updateOne(
-              { _id: ObjectId(taskId) },
-              { $set: validatedData },
-            ))
-          .then((response) => {
-            if (response.matchedCount === 0) throw errors.notFound();
-
-            return response;
-          });
+    return joi.validate({ id, userIdCandidate }, parametersSchema)
+      .then(usersServices.findOne(userIdCandidate))
+      .then(() => clients.mongodb())
+      .then(db => db.collection(this.COLLECTION_NAME).deleteOne({ _id: ObjectId(id), userId: userIdCandidate }))
+      .then((response) => {
+        return response.deletedCount;
       });
-    })
-    .then(() => findOne(listId, taskId));
+  }
+
+  find(userId, first = 20, offset = 0, term) {
+    return joi.validate(userId, joi.string().required())
+      .then(() => {
+        return usersServices.findOne(userId).then(() => {
+          return clients.mongodb()
+            .then((db) => {
+              return db
+                .collection(this.COLLECTION_NAME)
+                .find(term ? { userId, $text: { $search: term } } : { userId })
+                .skip(offset)
+                .limit(first)
+                .toArray();
+            });
+        });
+      });
+  }
+
+  findAll(first = 20, offset = 0) {
+    return clients.mongodb()
+      .then((db) => {
+        return db
+          .collection(this.COLLECTION_NAME)
+          .find()
+          .skip(offset)
+          .limit(first)
+          .toArray();
+      });
+  }
+
+
+  findOne(userId, favoriteId) {
+    const parametersSchema = joi.object().keys({
+      userId: joi.string().required(),
+      favoriteId: joi.string().required(),
+    });
+
+    return joi.validate({ userId, favoriteId }, parametersSchema)
+      .then(() => clients.mongodb())
+      .then(db => db.collection(this.COLLECTION_NAME).findOne({ _id: ObjectId(favoriteId), userId }))
+      .then((favorite) => {
+        // if (!favorite) throw errors.notFound();
+        return favorite;
+      });
+  }
+
+  findOneByAlbumId(userId, albumIdCandidate) {
+    const parametersSchema = joi.object().keys({
+      userId: joi.string().required(),
+      albumIdCandidate: joi.string().required(),
+    });
+
+    return joi.validate({ userId, albumIdCandidate }, parametersSchema)
+      .then(() => clients.mongodb())
+      .then(db => db.collection(this.COLLECTION_NAME).findOne({ albumId: albumIdCandidate, userId }))
+      .then((albumFound) => {
+        return albumFound;
+      });
+  }
 }
 
-export default {
-  createOne,
-  deleteOne,
-  find,
-  findOne,
-  updateOne,
-};
+export default new FavorisServices('favorites');
