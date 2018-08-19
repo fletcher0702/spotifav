@@ -1,6 +1,5 @@
 import jwtUtils from '../../../utils/jwt.utils';
 import usersServices from '../../../modules/users/services';
-import cfg from './config';
 
 export default function (req, res, next) {
   const mail = req.body.email;
@@ -36,9 +35,3 @@ export default function (req, res, next) {
       res.status(401).json({ message: 'Le mail existe déjà ! Désolé :-( ' });
     });
 }
-
-// createOne(req.body)
-//   .then(response => res.send({
-//     token: jwt.encode({ email: response.email, password: req.body.password }, cfg.jwtSecret),
-//   }))
-//   .catch(err => next(err));

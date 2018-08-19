@@ -1,12 +1,11 @@
 
-// import asyncLib from 'async';
-import userServices from '../../../../modules/users/services';
+import usersServices from '../../../../modules/users/services';
 
 // Constants
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 /* const PASSWORD_REGEX = /^(?=.*\d).{4,8}$/; */
 
-export default function (req, res, next) {
+export default function (req, res) {
   // Params
   const mail = req.body.email;
   const pwd = req.body.password;
@@ -26,14 +25,15 @@ export default function (req, res, next) {
   if (!EMAIL_REGEX.test(mail)) {
     return res.status(400).json({ error: 'email is not valid' });
   }
-  return userServices
+  return usersServices
     .findOne(mail)
     .then((userFound) => {
-      if (userFound == null) {
-        return userServices
+      if (userFound === null) {
+        return usersServices
           .createOne(req.body)
-          .then(createdUser => createdUser);
+          .then(createdUser => createdUser)
+          .catch(err => console.log(err));
       }
     })
-    .catch(err => {});
+    .catch((err) => console.log(err));
 }

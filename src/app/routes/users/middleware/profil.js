@@ -15,18 +15,21 @@ export default function (request, response) {
 }
 
 export const passwordUpdate = function (request, response) {
+
   const mail = request.user.email;
   const pwd = request.body.password;
+
+  console.log(pwd);
   const confirmedPwd = request.body.confirmedPassword;
 
-  if (pwd === '' || confirmedPwd === '') response.render(app.locals.views.profil, { errorMessage: true, message: 'Champ(s) vide(s)' });
+  if (pwd === '' || confirmedPwd === '') response.send({ error: true, fields: true, message: 'Champ(s) vide(s)' });
 
-  if (pwd !== confirmedPwd) response.render(app.locals.views.profil, { errorMessage: true, message: 'Erreur mot de passe différents' });
+  if (pwd !== confirmedPwd) response.send({ error: true, password: true, message: 'Erreur mot de passe différents' });
 
   delete request.body.confirmedPassword;
   request.body.email = mail;
   return userServices
     .updateOnePassword(mail, request.body)
-    .then(res => response.render(app.locals.views.profil, { errorMessage: false, message: 'Mot de passe mis à jour !' }))
+    .then(res => response.send({ error: false, message: 'Mot de passe mis à jour !' }))
     .catch(err => err);
 };

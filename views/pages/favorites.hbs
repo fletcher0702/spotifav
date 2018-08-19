@@ -1,0 +1,72 @@
+<div id="setting-title">
+  <h2 class="ui header">
+    <i class="star yellow icon"></i>
+    <div class="content">
+      Gestion de Favoris
+      <div class="sub header">Gérer vos préférences</div>
+    </div>
+  </h2>
+</div>
+
+  {{#if emptyFavorite}}{
+
+  <div id="warning-empty" class="ui warning message">
+    <i class="close icon"></i>
+    <div class="header">
+      Désolé vous n'avez pas de favoris !
+    </div>
+  </div>
+
+  {{/if}}
+
+  {{#if error}}
+  <div id="warning" class="ui negative message">
+    <i class="close icon"></i>
+    <div class="header">
+      {{ message }}
+    </div>
+  </div>
+  {{/if}}
+
+  {{#if success}}
+
+    <div id="warning" class="ui positive message">
+      <i class="close icon"></i>
+      <div class="header">
+        {{ message }}
+      </div>
+    </div>
+
+  {{/if}}
+
+
+<div id="usersInPannel" class="ui middle aligned divided list">
+
+
+  {{#each favorites}}
+    <div class="item">
+
+      {{#if ../isAdmin}}
+      <a onclick='favoriteAction("/admin/favorites/delete/{{this.userId}}/{{this.albumId}}","Êtes-vous sûr de vouloir supprimer ce favoris?")' class="ui red right floated content icon button">
+        <i class="user times icon"></i>
+      </a>
+      {{else}}
+        <a onclick='favoriteAction("/favorites/delete?albumId={{this._id}}","Êtes-vous sûr de vouloir supprimer ce favoris?")' class="ui red right floated content icon button">
+          <i class="user times icon"></i>
+        </a>
+      {{/if}}
+
+      <img class="ui avatar image" src="/assets/images/user.png">
+      <div class="content">
+        <a class="header">{{this.userId}}</a>
+        <div class="meta">
+          <span>AlbumId : {{this.albumId}}</span>
+        </div>
+        <div class="description">
+          <span>Name : {{this.name}}</span>
+        </div>
+      </div>
+    </div>
+  {{/each}}
+
+</div>

@@ -2,8 +2,8 @@ import joi from 'joi';
 
 const model = joi.object().keys({
 
-  firstname: joi.string(),
-  lastname: joi.string(),
+  firstName: joi.string(),
+  lastName: joi.string(),
   email: joi.string().required(),
   password: joi.string().required(),
   isAdmin: joi.boolean().default(false),
@@ -12,7 +12,6 @@ const model = joi.object().keys({
 export const modelForUpdate = joi.object().keys({
   firstName: joi.string(),
   lastName: joi.string(),
-
   password: joi.string(),
   email: joi.string().required(),
 });

@@ -3,13 +3,16 @@ import { Router } from 'express';
 import signup from './users/middleware/signup';
 import login, { isLogged } from './users/middleware/login';
 import userServices from '../../modules/users/services';
-import profil from './users/middleware/profil';
-import { passwordUpdate } from './users/middleware/profil';
+import profil, { passwordUpdate } from './users/middleware/profil';
 import admin, {
   deleteUserById, userExist, editUser, updateUserIdentity, addUser,
 } from './users/middleware/adminPannel';
 import isAdmin from './users/middleware/isAdmin';
 import searchAlbum from './favoris/middleware/searchAlbum';
+import findFavorites from './favoris/middleware/findFavorites';
+import deleteFavorite from './favoris/middleware/deleteFavorite';
+import addFavorite from './favoris/middleware/addFavorite';
+import deleteUserFavorite from './favoris/middleware/deleteUserFavorite';
 import app from '../../app';
 
 const router = Router();
@@ -123,20 +126,23 @@ router.get('/admin/pannel/create', isLogged, isAdmin, (request, response) => {
 router.post('/admin/pannel/create', isLogged, isAdmin, (request, response) => {
   addUser(request, response)
     .then((userFound) => {
-      if (userFound) {
+      if (userFound !== null) {
         response.render(app.locals.views.createUser, { createdUserMessage: true, message: 'Utilisateur créé !' });
       } else {
         response.render(app.locals.views.createUser, { createdUserError: true, message: 'Désolé le mail existe déjà :-(  ' });
       }
-    });
+    }).catch(err => err);
 });
 router.get('/admin/pannel/update', isLogged, isAdmin, userExist, editUser);
 router.post('/admin/pannel/update', isLogged, isAdmin, updateUserIdentity);
 
 router.get('/admin/pannel/delete', isLogged, isAdmin, deleteUserById);
 
-//spotify routes
+// spotify routes
 
-router.get('/albums', searchAlbum);
+router.get('/favorites', isLogged, findFavorites);
+router.get('/favorites/rating/:albumId/:albumName', isLogged, addFavorite);
+router.get('/admin/favorites/delete/:userId/:albumId', isLogged, isAdmin, deleteUserFavorite);
+router.get('/favorites/delete', isLogged, deleteFavorite);
 
 export default router;

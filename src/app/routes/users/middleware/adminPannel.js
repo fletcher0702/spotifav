@@ -1,14 +1,13 @@
 import IdValidator from 'valid-objectid';
-import userServices from '../../../../modules/users/services';
-import app from '../../../../app';
-import signUp from './signup';
+import usersServices from '../../../../modules/users/services';
+import favoritesServices from '../../../../modules/favoris/services';
 
 // Constants
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 export default function (request, response) {
   const email = request.user.email;
 
-  return userServices
+  return usersServices
     .findExceptCurrent(email)
     .then((getUsers) => {
       response.locals.users = getUsers;
@@ -21,11 +20,17 @@ export const deleteUserById = function (request, response) {
   const id = request.query.id;
   const adminPannelLink = '/admin/pannel/';
   if (IdValidator.isValid(id)) {
-    userServices
+    usersServices
       .findOneById(id)
       .then((userFound) => {
         if (userFound !== null) {
-          return userServices
+          favoritesServices
+            .deleteAssociatedFavorites(userFound._id.toString())
+            .then(res => res)
+            .catch(err => err);
+
+
+          return usersServices
             .deleteOne(userFound.email)
             .then((res) => {
               response.redirect(adminPannelLink);
@@ -47,12 +52,9 @@ export const userExist = function (request, response, next) {
     response.redirect(adminPannelLink);
     done(null, false);
   } else {
-    console.log(`id : ${id}`);
-    return userServices
+    return usersServices
       .findOneById(id)
       .then((userFound) => {
-        console.log('User found ');
-        console.log(userFound);
         if (userFound === null) {
           response.redirect(adminPannelLink);
           done(null, false);
@@ -69,12 +71,11 @@ export const editUser = function (request, response) {
   const adminPannelLink = '/admin/pannel/';
   const editUserView = 'profilUpdate';
 
-  return userServices
+  return usersServices
     .findOneById(id)
     .then((userFound) => {
       if (userFound === null) {
         response.redirect(adminPannelLink);
-        // done(null, false);
       } else {
         const lastNameUser = userFound.lastName;
         const firstNameUser = userFound.firstName;
@@ -93,7 +94,7 @@ export const updateUserIdentity = function (request, response) {
   }
   delete request.body.id;
 
-  return userServices
+  return usersServices
     .findOneById(id)
     .then((userFound) => {
       if (userFound === null) {
@@ -102,7 +103,7 @@ export const updateUserIdentity = function (request, response) {
       const mail = userFound.email;
 
       request.body.email = mail;
-      userServices
+      usersServices
         .updateOne(mail, request.body)
         .then((res) => {
           response.render('profilUpdate', { errorMessage: true, message: 'utilisateur mis à jour !' });
@@ -113,43 +114,47 @@ export const updateUserIdentity = function (request, response) {
 };
 
 export const addUser = function (req, res) {
-  console.log(req.body);
-
   // Params
   const mail = req.body.email;
   const pwd = req.body.password;
   const confirmedPwd = req.body.confirmedPassword;
   const adminUser = req.body.admin;
 
-  if (adminUser === 'on'){
+  if (adminUser === 'on') {
     req.body.isAdmin = true;
-    delete req.body.admin;
   }
 
   if (mail == null || pwd == null || confirmedPwd == null) {
-    return res.status(400).json({ error: 'missing parameters' });
+    res.status(400).json({ error: 'missing parameters' });
+    res.send();
   }
 
   if (pwd !== confirmedPwd) {
-    return res.status(400).json({ error: 'different password' });
+    res.status(400).json({ error: 'different password' });
+    res.send();
+  }
+
+
+
+  if (!EMAIL_REGEX.test(mail)) {
+    res.status(400).json({ error: 'email is not valid' });
+    res.send();
   }
 
   // Deleting confirmation password field
   delete req.body.confirmedPassword;
-
-  if (!EMAIL_REGEX.test(mail)) {
-    return res.status(400).json({ error: 'email is not valid' });
-  }
-
+  delete req.body.admin;
   console.log(req.body);
-  return userServices
+
+  return usersServices
     .findOne(mail)
     .then((userFound) => {
-      if (userFound == null) {
-        return userServices
+      if (userFound === null) {
+        return usersServices
           .createOne(req.body)
-          .then(createdUser => createdUser);
+          .then(createdUser => createdUser)
+          .catch(err => err);
       }
     })
-    .catch((err) => {});
+    .catch(err => err);
 };

@@ -1,13 +1,55 @@
 
 
-<div id="searchInAlbum" class="ui transparent icon input">
-  <input type="text" placeholder="Search albums...">
-  <i class="search link icon"></i>
+<form method="get" action={{albums}}>
 
-</div>
-<div id="searchInAlbumDivider" class="ui divider"></div>
+  <div id="searchInAlbum">
+    <div id="searchFiedlAlbum" class="ui form">
+      <div class="two fields">
+        <div class="field">
+
+          <input name="album" placeholder="Album" type="text">
+        </div>
+        <div class="field">
+
+          <input name="limit" placeholder="Limite" type="text">
+        </div>
+        <button class="ui black animated submit button">
+          <div class="visible content"><i class="search icon"></i></div>
+          <div class="hidden content">
+            <i class="right arrow icon"></i>
+          </div>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</form>
 
   <div id="albumsResults">
+
+    <div id="success" class="ui positive message">
+      <i class="close icon"></i>
+      <div class="header">
+          Album ajouté en favoris !
+      </div>
+    </div>
+
+    <div id="warning-favorite" class="ui warning message">
+      <i class="close icon"></i>
+      <div class="header">
+        Déja en favoris !
+      </div>
+    </div>
+
+    <div id="error-favorite" class="ui negative message">
+      <i class="close icon"></i>
+      <div class="header">
+        Erreur album invalide !
+      </div>
+    </div>
+
+
 
 
     {{#each results}}
@@ -30,7 +72,7 @@
             <div class="meta">
               <span>Date de sortie : {{this.release_date}}</span>
               {{#if ../isAuthenticated}}
-                <div id="fav-icon" value='{{this.id}}' class="ui star massive rating" data-max-rating="1"></div>
+                <button id="fav-btn" class="ui circular yellow icon button" onclick='confirmAction("/favorites/rating/{{this.id}}/{{this.name}}","Ajouter cet album en favoris ?")'><i class="star icon"></i></button>
               {{/if}}
             </div>
             <div class="meta">

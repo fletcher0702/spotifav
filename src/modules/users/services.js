@@ -17,12 +17,7 @@ class UsersServices {
 
     return joi.validate(data, model).then(validatedData => clients.mongodb()
       .then((db) => {
-        const copyValidated = {
-          ...validatedData,
-          password: sha1(pwd),
-
-        };
-        return db.collection(this.COLLECTION_NAME).insertOne(copyValidated);
+        return db.collection(this.COLLECTION_NAME).insertOne(validatedData);
       })
       .then(response => response.ops[0]));
   }

@@ -44,7 +44,7 @@ form.ui.form.authenticate{
 
 }
 
-#btn-form{
+#btn-form, #btn-profil{
 
   position: relative;
   float: right;
@@ -146,7 +146,7 @@ transform: translate(-50%, -50%);
   background-color: white;
 }
 
-#warning{
+#success,#warning,#warning-favorite,#error-favorite{
   text-align: center;
   position: relative;
   margin-top: 5%;
@@ -160,7 +160,7 @@ transform: translate(-50%, -50%);
   font-size: 40px;
 }
 
-#fav-icon {
+#fav-btn {
   position: relative;
   bottom: 2vh;
   float: right;
@@ -216,15 +216,34 @@ div.adminPannel {
 
 #searchInAlbum{
 
-
-  margin-top: 3%;
   width: 50%;
+  margin-top: 3%;
   margin-left: 25%;
 
+}
+
+#searchAlbum-btn{
+  position: relative;
+  height: 4vh;
+  top: 4vh;
 }
 
 #searchInAlbumDivider{
   width: 50%;
   margin-left: 25%;
+
+}
+
+#warning-empty{
+  text-align: center;
+  position: relative;
+  margin-top: 7%;
+  width: 50%;
+  margin-left: 25%;
+}
+
+#searchFiedlAlbum{
+
+  padding-top: 3%;
 
 }

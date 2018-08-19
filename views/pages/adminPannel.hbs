@@ -1,65 +1,143 @@
-<div id="setting-title">
-  <h2 class="ui header">
-    <i class="settings icon"></i>
-    <div class="content">
-      Gestion de comptes
-      <div class="sub header">Gérer vos préférences</div>
-    </div>
-  </h2>
+
+<div id="personnal-informations" class="ui attached tabular menu">
+  <a class="item active" data-tab="accounts">Comptes</a>
+  <a class="item" data-tab="favorites">Favoris</a>
 </div>
 
-{{#if updateMessage}}
-  <div id="warning" class="ui positive message">
-    <i class="close icon"></i>
-    <div class="header">
-      {{ message }}
-    </div>
-  </div>
-{{/if}}
-
-
-<div id="usersInPannel" class="ui middle aligned divided list">
-
-  <div class="item">
-
-    <div class="content">
-      <a class="header">{{this.email}}</a>
-      <div class="meta">
-        <a id="adding-user" onclick='confirmAction("/admin/pannel/create","Êtes-vous sûr de vouloir créer un utilisateur?")' class="ui green center content icon button">
-          <i class="user plus icon"></i>
-        </a>
+<div class="ui bottom attached tab segment active" data-tab="accounts">
+  <div id="setting-title">
+    <h2 class="ui header">
+      <i class="settings icon"></i>
+      <div class="content">
+        Gestion de comptes
+        <div class="sub header">Gérer vos préférences</div>
       </div>
-
-    </div>
+    </h2>
   </div>
 
-  {{#each users}}
+  {{#if updateMessage}}
+    <div id="warning" class="ui positive message">
+      <i class="close icon"></i>
+      <div class="header">
+        {{ message }}
+      </div>
+    </div>
+  {{/if}}
+
+  <div id="usersInPannel" class="ui middle aligned divided list">
+
     <div class="item">
-      <a onclick='confirmAction("/admin/pannel/delete?id={{this._id}}","Êtes-vous sûr de vouloir supprimer cet utilisateur?")' class="ui red right floated content icon button">
-        <i class="user times icon"></i>
-      </a>
-      <div class="right floated content">
-        <a onclick='confirmAction("/admin/pannel/update?id={{this._id}}", "Êtes-vous dûr de vouloir éditer cet utilisateur?")' class="ui orange right floated content icon button">
-          <i class="pencil alternate icon"></i>
-        </a>
-      </div>
-      <img class="ui avatar image" src="/assets/images/user.png">
+
       <div class="content">
         <a class="header">{{this.email}}</a>
         <div class="meta">
-          <span>Nom : {{this.lastName}}</span>
+          <a id="adding-user" href="/admin/pannel/create" class="ui green center content icon button">
+            <i class="user plus icon"></i>
+          </a>
         </div>
-        <div class="description">
-          <span>Prénom : {{this.firstName}}</span>
-        </div>
+
       </div>
     </div>
-  {{/each}}
 
-  <script>
-      function confirmAction(link, message){
-        if(confirm(message)){
-          window.location.href= link;
-        }
-      }
-  </script>
+    {{#each users}}
+      <div class="item">
+        <a onclick='actionUser("/admin/pannel/delete?id={{this._id}}","Êtes-vous sûr de vouloir supprimer cet utilisateur?")' class="ui red right floated content icon button">
+          <i class="user times icon"></i>
+        </a>
+        <div class="right floated content">
+          <a onclick='actionUser("/admin/pannel/update?id={{this._id}}", "Êtes-vous dûr de vouloir éditer cet utilisateur?")' class="ui orange right floated content icon button">
+            <i class="pencil alternate icon"></i>
+          </a>
+        </div>
+        <img class="ui avatar image" src="/assets/images/user.png">
+        <div class="content">
+          <a class="header">{{this.email}}</a>
+          <div class="meta">
+            <span>Nom : {{this.lastName}}</span>
+          </div>
+          <div class="description">
+            <span>Prénom : {{this.firstName}}</span>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</div>
+
+<div class="ui bottom attached tab segment" data-tab="favorites">
+  <div id="setting-title">
+    <h2 class="ui header">
+      <i class="star yellow icon"></i>
+      <div class="content">
+        Gestion de Favoris
+        <div class="sub header">Gérer vos préférences</div>
+      </div>
+    </h2>
+  </div>
+
+  {{#if emptyFavorite}}{
+
+    <div id="warning-empty" class="ui warning message">
+      <i class="close icon"></i>
+      <div class="header">
+        Désolé vous n'avez pas de favoris !
+      </div>
+    </div>
+
+  {{/if}}
+
+  {{#if error}}
+    <div id="warning" class="ui negative message">
+      <i class="close icon"></i>
+      <div class="header">
+        {{ message }}
+      </div>
+    </div>
+  {{/if}}
+
+  {{#if success}}
+
+    <div id="warning" class="ui positive message">
+      <i class="close icon"></i>
+      <div class="header">
+        {{ message }}
+      </div>
+    </div>
+
+  {{/if}}
+
+
+  <div id="usersInPannel" class="ui middle aligned divided list">
+
+
+    {{#each favorites}}
+      <div class="item">
+
+        {{#if ../isAdmin}}
+          <a onclick='favoriteAction("/admin/favorites/delete/{{this.userId}}/{{this.albumId}}","Êtes-vous sûr de vouloir supprimer ce favoris?")' class="ui red right floated content icon button">
+            <i class="user times icon"></i>
+          </a>
+        {{else}}
+          <a onclick='favoriteAction("/favorites/delete?albumId={{this._id}}","Êtes-vous sûr de vouloir supprimer ce favoris?")' class="ui red right floated content icon button">
+            <i class="user times icon"></i>
+          </a>
+        {{/if}}
+
+        <img class="ui avatar image" src="/assets/images/user.png">
+        <div class="content">
+          <a class="header">{{this.userId}}</a>
+          <div class="meta">
+            <span>AlbumId : {{this.albumId}}</span>
+          </div>
+          <div class="description">
+            <span>Name : {{this.name}}</span>
+          </div>
+        </div>
+      </div>
+    {{/each}}
+
+  </div>
+
+</div>
+
+

@@ -30,5 +30,6 @@ router.delete('/users/:userId/favorites/:favoriteId', passport.authenticate('jwt
 // Admin section
 
 router.get('/admin/favorites', passport.authenticate('jwt', cfg.jwtSession), isAdmin, findAllFavorites);
+router.delete('/admin/favorites/:favoriteId', passport.authenticate('jwt', cfg.jwtSession), isAdmin, deleteOneFavorite);
 
 export default router;

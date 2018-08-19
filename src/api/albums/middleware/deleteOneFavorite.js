@@ -3,8 +3,6 @@ import IdValidator from 'valid-objectid';
 import favoriteServices from '../../../modules/favoris/services';
 
 export default function (request, response) {
-
-  console.log(request.params.favoriteId);
   if (!IdValidator.isValid(request.params.userId)) response.send('userId non valide !');
   if (typeof request.params.favoriteId === 'undefined') response.status(401).json({ message: 'favoriteId non valide !' });
 

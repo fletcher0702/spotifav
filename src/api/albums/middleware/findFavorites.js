@@ -2,8 +2,6 @@ import IdValidator from 'valid-objectid';
 import favoriteServices from '../../../modules/favoris/services';
 
 export default function (request, response) {
-  console.log(request.params.userId);
-  console.log(request.body);
 
   let searchLimit = 20;
   let searchOffset = 0;
