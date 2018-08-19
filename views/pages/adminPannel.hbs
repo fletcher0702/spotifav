@@ -24,6 +24,13 @@
     </div>
   {{/if}}
 
+  <div id="error-favorite" class="ui negative message">
+    <i class="close icon"></i>
+    <div class="header">
+      Une erreur est survenue lors de la suppréssion...
+    </div>
+  </div>
+
   <div id="usersInPannel" class="ui middle aligned divided list">
 
     <div class="item">
@@ -95,16 +102,12 @@
     </div>
   {{/if}}
 
-  {{#if success}}
-
-    <div id="warning" class="ui positive message">
-      <i class="close icon"></i>
-      <div class="header">
-        {{ message }}
-      </div>
+  <div id="success" class="ui positive message">
+    <i class="close icon"></i>
+    <div class="header">
+      Album supprimé !
     </div>
-
-  {{/if}}
+  </div>
 
 
   <div id="usersInPannel" class="ui middle aligned divided list">
@@ -114,11 +117,7 @@
       <div class="item">
 
         {{#if ../isAdmin}}
-          <a onclick='favoriteAction("/admin/favorites/delete/{{this.userId}}/{{this.albumId}}","Êtes-vous sûr de vouloir supprimer ce favoris?")' class="ui red right floated content icon button">
-            <i class="user times icon"></i>
-          </a>
-        {{else}}
-          <a onclick='favoriteAction("/favorites/delete?albumId={{this._id}}","Êtes-vous sûr de vouloir supprimer ce favoris?")' class="ui red right floated content icon button">
+          <a onclick='confirmAction("/admin/favorites/delete/{{this.userId}}/{{this.albumId}}","Êtes-vous sûr de vouloir supprimer ce favoris?")' class="ui red right floated content icon button">
             <i class="user times icon"></i>
           </a>
         {{/if}}

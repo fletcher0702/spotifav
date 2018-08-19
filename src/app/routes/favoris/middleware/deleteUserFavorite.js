@@ -6,7 +6,7 @@ export default function (request, response) {
   const favoriteView = 'favorites';
 
   if (!IdValidator.isValid(request.params.userId)) {
-    response.render(favoriteView, { error: true, message: 'id utilisateur invalide!' });
+    response.send({ error: true, message: 'id utilisateur invalide!' });
   }
 
   const user = request.params.userId;
@@ -17,7 +17,7 @@ export default function (request, response) {
     .then((favoriteFound) => {
 
       if (favoriteFound === null) {
-        response.render(favoriteView, { error: true, message: 'album non existant' });
+        response.send({ error: true, message: 'album non existant' });
       }
 
       const id = favoriteFound._id.toString();
@@ -26,10 +26,10 @@ export default function (request, response) {
         .then((deleteCount) => {
 
           if (deleteCount === 0) {
-            response.render(favoriteView, { error: true, message: 'une erreur est survenue lors de la suppression !' });
+            response.send({ error: true, message: 'une erreur est survenue lors de la suppression !' });
           }
 
-          response.render(favoriteView, { success: true, message: 'favoris supprimé !' });
+          response.send({ success: true, message: 'favoris supprimé !' });
         })
         .catch(err => err);
     })

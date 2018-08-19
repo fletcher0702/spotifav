@@ -28,7 +28,6 @@ class FavorisServices {
   }
 
 
-
   deleteAssociatedFavorites(userIdCandidate) {
     const parametersSchema = joi.object().keys({
       userIdCandidate: joi.string().required(),

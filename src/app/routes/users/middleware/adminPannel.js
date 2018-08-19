@@ -11,7 +11,9 @@ export default function (request, response) {
     .findExceptCurrent(email)
     .then((getUsers) => {
       response.locals.users = getUsers;
-      response.render('adminPannel');
+      favoritesServices.findAll().then((allFavorites) => {
+        response.render('adminPannel', {favorites: allFavorites});
+      }).catch(err => err);
     })
     .catch(err => err);
 }
@@ -133,7 +135,6 @@ export const addUser = function (req, res) {
     res.status(400).json({ error: 'different password' });
     res.send();
   }
-
 
 
   if (!EMAIL_REGEX.test(mail)) {

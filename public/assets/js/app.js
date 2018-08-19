@@ -6,7 +6,6 @@ $('.message .close')
   });
 $(document).ready(() => { $('.rating').rating(); });
 $('.tabular.menu .item').tab();
-$('.pointing.secondary.menu .item').tab();
 $('.ui.checkbox')
   .checkbox();
 
@@ -27,6 +26,14 @@ function confirmAction(link, message) {
 
         if (data.favorite) {
           $('#warning-favorite').show();
+        }
+
+        if(data.success){
+          $('#success').transition('fly up');
+
+          setTimeout(function(){
+            window.location.reload(1);
+          }, 1000);
         }
       },
       error() {

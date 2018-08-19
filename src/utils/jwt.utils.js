@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 
-const JWT_SIGN_SECRET = 'MyS3cr3tK3Y';
+const JWT_SIGN_SECRET = '';
 
 export default {
   generateTokenForUser(userData) {
