@@ -7,11 +7,13 @@ import path from 'path';
 import passport from 'passport';
 import session from 'express-session';
 import flash from 'connect-flash';
+import queryString from 'query-string';
 import appRouter from './app/routes';
 import apiRouter from './api';
 import sessionUtils from './utils/session.utils';
 import notFoundMiddleware from './middleware/notFound';
 import errorsMiddleware from './middleware/errors';
+import spotifyWebApi, { credentialsUtils } from './utils/spotify';
 
 const app = express();
 

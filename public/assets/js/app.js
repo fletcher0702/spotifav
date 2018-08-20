@@ -28,10 +28,10 @@ function confirmAction(link, message) {
           $('#warning-favorite').show();
         }
 
-        if(data.success){
+        if (data.success) {
           $('#success').transition('fly up');
 
-          setTimeout(function(){
+          setTimeout(() => {
             window.location.reload(1);
           }, 1000);
         }
@@ -42,15 +42,27 @@ function confirmAction(link, message) {
     });
   }
 }
-function actionUser(link, message){
-
-  if(confirm(message)){
-    window.location.href=link;
+function actionUser(link, message) {
+  if (confirm(message)) {
+    window.location.href = link;
   }
 }
 
-function favoriteAction(link, message){
-  if(confirm(message)){
-    window.location.href= link;
+function favoriteAction(link, message) {
+  if (confirm(message)) {
+    window.location.href = link;
   }
 }
+
+// $('#spotify-btn').on('click', () => {
+//   $.ajax({
+//
+//     url: '/spotify',
+//     success(spotifyResponse) {
+//       alert(spotifyResponse);
+//     },
+//     error() {
+//       alert('error request');
+//     },
+//   });
+// });

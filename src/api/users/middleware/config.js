@@ -1,5 +1,5 @@
 export default {
-  jwtSecret: '',
+  jwtSecret: 'MyS3cr3tK3Y',
   jwtSession: {
     session: false,
   },
