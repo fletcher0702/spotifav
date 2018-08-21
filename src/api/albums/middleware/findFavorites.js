@@ -2,7 +2,6 @@ import IdValidator from 'valid-objectid';
 import favoriteServices from '../../../modules/favoris/services';
 
 export default function (request, response) {
-
   let searchLimit = 20;
   let searchOffset = 0;
 
@@ -17,7 +16,7 @@ export default function (request, response) {
   const user = request.params.userId;
 
   return favoriteServices
-    .find(user, searchLimit,searchOffset)
+    .find(user, searchLimit, searchOffset)
     .then((res) => {
       response.send(res);
     })

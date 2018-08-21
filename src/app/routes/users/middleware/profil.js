@@ -1,3 +1,4 @@
+/* eslint-disable import/no-cycle */
 
 import userServices from '../../../../modules/users/services';
 import app from '../../../../app';
@@ -10,7 +11,7 @@ export default function (request, response) {
 
   return userServices
     .updateOne(mail, request.body)
-    .then(updateRes => response.redirect(app.locals.profil))
+    .then(() => response.redirect(app.locals.profil))
     .catch(err => err);
 }
 
@@ -18,8 +19,6 @@ export const passwordUpdate = function (request, response) {
 
   const mail = request.user.email;
   const pwd = request.body.password;
-
-  console.log(pwd);
   const confirmedPwd = request.body.confirmedPassword;
 
   if (pwd === '' || confirmedPwd === '') response.send({ error: true, fields: true, message: 'Champ(s) vide(s)' });
@@ -30,6 +29,6 @@ export const passwordUpdate = function (request, response) {
   request.body.email = mail;
   return userServices
     .updateOnePassword(mail, request.body)
-    .then(res => response.send({ error: false, message: 'Mot de passe mis à jour !' }))
+    .then(() => response.send({ error: false, message: 'Mot de passe mis à jour !' }))
     .catch(err => err);
 };

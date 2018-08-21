@@ -1,7 +1,7 @@
 import jwtUtils from '../../../utils/jwt.utils';
 import usersServices from '../../../modules/users/services';
 
-export default function (req, res, next) {
+export default function (req, res) {
   const mail = req.body.email;
   const pwd = req.body.password;
   const confirmedPwd = req.body.confirmedPassword;
@@ -20,18 +20,20 @@ export default function (req, res, next) {
   return usersServices
     .findOne(mail)
     .then((userFound) => {
-      if (userFound === null) {
+      if (userFound !== null) {
+        res.status(401).json({ message: 'Le mail existe déjà ! Désolé :-( ' });
+      } else {
         return usersServices
           .createOne(req.body)
           .then((createdUser) => {
             const accessToken = jwtUtils.generateTokenForUser(createdUser);
 
-            // jwt.encode({ id: createdUser._id.toString() }, cfg.jwtSecret);
-            res.status(201).json({ message: 'l\'utilisateur a bien été créé, récupérez votre token', token: accessToken });
+            res.status(201).json({
+              message: 'l\'utilisateur a bien été créé, récupérez votre token',
+              token: accessToken,
+            });
           })
-          .catch(err => res.status(401).json({ message: 'Problème lors de la création de l\'utilisateur' }));
+          .catch(() => res.status(401).json({ message: 'Problème lors de la création de l\'utilisateur' }));
       }
-
-      res.status(401).json({ message: 'Le mail existe déjà ! Désolé :-( ' });
     });
 }

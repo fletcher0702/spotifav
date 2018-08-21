@@ -5,7 +5,6 @@ export default function (request, response, next) {
 
   if (!isLogged) {
     response.redirect('/');
-    done(null, false);
   }
 
   const mail = request.user.email;
@@ -17,7 +16,6 @@ export default function (request, response, next) {
         next();
       } else {
         response.redirect('/');
-        done(null, false);
       }
     })
     .catch(err => err);

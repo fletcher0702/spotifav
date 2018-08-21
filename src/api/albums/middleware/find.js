@@ -14,9 +14,7 @@ export default function (request, response) {
     searchLimit = parseInt(request.query.limit, 10);
   }
 
-  console.log(searchAlbum);
-
-  spotifyApi
+  return spotifyApi
     .searchAlbums(searchAlbum, { limit: searchLimit })
     .then((data) => {
       const searchResults = data.body.albums.items;

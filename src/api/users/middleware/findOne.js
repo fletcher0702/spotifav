@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign,consistent-return */
 import usersServices from '../../../modules/users/services';
 
 export default function (req, res, next) {

@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring,no-unreachable,consistent-return,max-len */
 import IdValidator from 'valid-objectid';
 import usersServices from '../../../../modules/users/services';
 import favoritesServices from '../../../../modules/favoris/services';
@@ -12,7 +13,7 @@ export default function (request, response) {
     .then((getUsers) => {
       response.locals.users = getUsers;
       favoritesServices.findAll().then((allFavorites) => {
-        response.render('adminPannel', {favorites: allFavorites});
+        response.render('adminPannel', { favorites: allFavorites });
       }).catch(err => err);
     })
     .catch(err => err);
@@ -26,7 +27,7 @@ export const deleteUserById = function (request, response) {
       .findOneById(id)
       .then((userFound) => {
         if (userFound !== null) {
-          favoritesServices
+          return favoritesServices
             .deleteAssociatedFavorites(userFound._id.toString())
             .then(res => res)
             .catch(err => err);
@@ -34,9 +35,8 @@ export const deleteUserById = function (request, response) {
 
           return usersServices
             .deleteOne(userFound.email)
-            .then((res) => {
+            .then(() => {
               response.redirect(adminPannelLink);
-              done(null, false);
             })
             .catch(err => err);
         }
@@ -100,14 +100,14 @@ export const updateUserIdentity = function (request, response) {
     .findOneById(id)
     .then((userFound) => {
       if (userFound === null) {
-        done(null, false);
+        return null;
       }
       const mail = userFound.email;
 
       request.body.email = mail;
       usersServices
         .updateOne(mail, request.body)
-        .then((res) => {
+        .then(() => {
           response.render('profilUpdate', { errorMessage: true, message: 'utilisateur mis à jour !' });
         })
         .catch(err => err);
@@ -145,7 +145,6 @@ export const addUser = function (req, res) {
   // Deleting confirmation password field
   delete req.body.confirmedPassword;
   delete req.body.admin;
-  console.log(req.body);
 
   return usersServices
     .findOne(mail)

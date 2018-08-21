@@ -1,7 +1,6 @@
 import usersServices from '../../../modules/users/services';
 
 export default function (req, res, done) {
-
   usersServices
     .findOneById(req.user.userId)
     .then((userFound) => {

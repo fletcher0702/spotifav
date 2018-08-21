@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 import jwt from 'jsonwebtoken';
 
 const JWT_SIGN_SECRET = '';

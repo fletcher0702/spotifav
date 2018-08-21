@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle,import/no-cycle */
 import passport from 'passport';
 import { Router } from 'express';
 import signup from './users/middleware/signup';
@@ -56,7 +57,6 @@ router.get('/home', (request, response) => {
 router.get('/login', (request, response) => {
   if (request.isAuthenticated()) {
     response.redirect(app.locals.home);
-    done(null, false);
   }
   response.render(app.locals.views.login, { title: 'Se connecter' });
 });
@@ -64,7 +64,6 @@ router.get('/login', (request, response) => {
 router.post('/login', (request, response, next) => {
   if (request.isAuthenticated()) {
     response.redirect(app.locals.home);
-    done(null, false);
   }
   const mail = request.body.username;
   const pwd = request.body.password;
@@ -83,7 +82,6 @@ router.get('/albums', searchAlbum);
 router.get('/signup', (request, response) => {
   if (request.isAuthenticated()) {
     response.redirect(app.locals.home);
-    done(null, false);
   }
   response.render(app.locals.views.signup, { title: 'S\'inscrire' });
 });
@@ -91,7 +89,6 @@ router.get('/signup', (request, response) => {
 router.post('/signup', (request, response, next) => {
   if (request.isAuthenticated()) {
     response.redirect(app.locals.home);
-    done(null, false);
   }
   signup(request, response, next)
     .then((userFound) => {

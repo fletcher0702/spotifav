@@ -1,7 +1,6 @@
 import favoriteServices from '../../../modules/favoris/services';
 
 export default function (request, response) {
-
   let searchLimit = 20;
   let searchOffset = 0;
 

@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+/* eslint-disable max-len,no-underscore-dangle */
 import favoriteServices from '../../../../modules/favoris/services';
 
 export default function (request, response) {

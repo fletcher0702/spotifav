@@ -1,4 +1,4 @@
-import { ExtractJwt, Strategy} from 'passport-jwt';
+import { ExtractJwt, Strategy } from 'passport-jwt';
 import userServices from '../modules/users/services';
 
 const opts = {

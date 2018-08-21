@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+/* eslint-disable max-len,no-underscore-dangle */
 import IdValidator from 'valid-objectid';
 import favoriteServices from '../../../../modules/favoris/services';
 

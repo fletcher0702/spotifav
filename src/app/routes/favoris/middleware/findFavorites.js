@@ -1,3 +1,4 @@
+/* eslint-disable max-len,no-underscore-dangle,no-param-reassign,no-unneeded-ternary */
 import favoriteServices from '../../../../modules/favoris/services';
 
 export default function (request, response) {
@@ -17,8 +18,7 @@ export default function (request, response) {
   return favoriteServices
     .find(user, searchLimit, searchOffset)
     .then((res) => {
-      const emptyFavoriteTest = (res.length === 0) ? true : false;
-      console.log(res);
+      const emptyFavoriteTest = (res.length === 0);
       const favoritesDictionary = [];
       res.forEach((favorite) => {
         favorite._id = favorite._id.toString();

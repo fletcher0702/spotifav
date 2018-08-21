@@ -1,12 +1,10 @@
-/* eslint-disable max-len */
+/* eslint-disable max-len,no-underscore-dangle */
 
 import favoriteServices from '../../../../modules/favoris/services';
 import spotifyApi from '../../../../utils/spotify';
 
 export default function (request, response) {
-
   if (typeof request.params.albumId === 'undefined') {
-    // response.render(favoriteView, { error: true, message: 'id du favoris invalide!' });
     response.send({ error: true, favorite: false, message: 'Id album invalide!' });
   }
 
@@ -20,8 +18,7 @@ export default function (request, response) {
       if (albumFound === null) {
         spotifyApi
           .getAlbum(favoriteAlbum)
-          .then((data) => {
-
+          .then(() => {
             const newFavorite = {
 
               userId: user,
@@ -31,12 +28,12 @@ export default function (request, response) {
 
             favoriteServices
               .createOne(user, newFavorite)
-              .then((createdRes) => {
+              .then(() => {
                 response.send({ error: false, favorite: false, message: 'favoris créé !' });
               })
-              .catch(err => response.send({ error: true, favorite: false, message: 'une erreur innatendue est arrivée...' }));
-          }, (error) => {
-            response.send({ error: true,favorite: false, message: 'album id ne correpond pas à un album spotify !' });
+              .catch(() => response.send({ error: true, favorite: false, message: 'une erreur innatendue est arrivée...' }));
+          }, () => {
+            response.send({ error: true, favorite: false, message: 'album id ne correpond pas à un album spotify !' });
           })
           .catch(err => err);
       } else {

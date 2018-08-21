@@ -12,9 +12,6 @@ export default function (request, response) {
   searchAlbum = request.query.album;
 
   if (typeof request.query.limit !== 'undefined') {
-    console.log(typeof parseInt(request.query.limit, 10));
-    console.log(parseInt(request.query.limit, 10).toString() === 'NaN');
-
     if (parseInt(request.query.limit, 10).toString() !== 'NaN') {
       searchLimit = parseInt(request.query.limit, 10);
     }
@@ -26,8 +23,6 @@ export default function (request, response) {
       const searchResults = data.body.albums.items;
 
       response.render('searchAlbum', { results: searchResults });
-    }, (error) => {
-      console.log(`Something is going wrong${error}`);
-    })
+    }, error => error)
     .catch(err => err);
 }

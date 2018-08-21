@@ -3,7 +3,6 @@ import favoriteServices from '../../../modules/favoris/services';
 import userServices from '../../../modules/users/services';
 
 export default function (request, response) {
-
   if (!IdValidator.isValid(request.params.userId)) response.send('userId non valide !');
   if (typeof request.params.favoriteId === 'undefined') response.send('favoriteId non définit !');
 

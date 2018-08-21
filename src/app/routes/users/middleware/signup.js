@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 
 import usersServices from '../../../../modules/users/services';
 
@@ -35,5 +36,5 @@ export default function (req, res) {
           .catch(err => console.log(err));
       }
     })
-    .catch((err) => console.log(err));
+    .catch(err => console.log(err));
 }

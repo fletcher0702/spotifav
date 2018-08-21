@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import usersServices from '../../../modules/users/services';
 
 export default function getUsers(req, res, next) {
@@ -6,9 +7,21 @@ export default function getUsers(req, res, next) {
     offset,
   } = req.query;
 
-  // parseInt(first, 10), parseInt(offset, 10)
+  let limit = 20;
+  let offsetValue = 0;
+  if (typeof first !== 'undefined') {
+    if (parseInt(first, 10).toString() !== 'NaN') {
+      limit = parseInt(first, 10);
+    }
+  }
+
+  if (typeof offset !== 'undefined') {
+    if (parseInt(offset, 10).toString() !== 'NaN') {
+      offsetValue = parseInt(offset, 10);
+    }
+  }
   return usersServices
-    .find()
+    .find(limit, offsetValue)
     .then((response) => {
       const users = [];
 

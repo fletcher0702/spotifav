@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwtUtils from '../../../utils/jwt.utils';
 import usersServices from '../../../modules/users/services';
 
-export default function (req, res, next) {
+export default function (req, res) {
   const mail = req.body.email;
   const pwd = req.body.password;
 

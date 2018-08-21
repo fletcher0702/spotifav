@@ -17,20 +17,18 @@ export default function (request, response) {
         response.status(401).json({ message: 'L\'utilisateur n\'existe pas' });
       }
 
-      console.log('user found ! ');
-
       favoriteServices
         .findOneByAlbumId(user, album)
         .then((albumFound) => {
           if (albumFound === null) {
             spotifyApi
               .getAlbum(album)
-              .then((data) => {
+              .then(() => {
                 favoriteServices
                   .createOne(user, request.body)
-                  .then(createdRes => response.status(201).json({ message: 'favoris créé !' }))
+                  .then(() => response.status(201).json({ message: 'favoris créé !' }))
                   .catch(err => err);
-              }, error => response.status(401).json({ message: 'album id ne correpond pas à un album spotify !' }))
+              }, () => response.status(401).json({ message: 'album id ne correpond pas à un album spotify !' }))
               .catch(err => err);
           } else {
             response.status(401).json({ message: 'Album déjà en favoris !' });

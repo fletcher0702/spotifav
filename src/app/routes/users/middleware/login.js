@@ -12,6 +12,7 @@ export default function (request, email, password, done) {
           if (err) done(null, false);
 
           done(null, user);
+          console.log(res);
         });
       } else {
         done(null, false);
