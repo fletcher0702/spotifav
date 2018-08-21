@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import joi from 'joi';
 import bcrypt from 'bcrypt';
 import { ObjectId } from 'mongodb';
@@ -12,7 +13,6 @@ class UsersServices {
   }
 
   createOne(data) {
-
     data.password = bcrypt.hashSync(data.password, 8);
 
     return joi.validate(data, model).then(validatedData => clients.mongodb()
@@ -73,13 +73,12 @@ class UsersServices {
       });
   }
 
-  findUser(userEmail, userPassword) {
+  findUser(userEmail) {
     return joi.validate(userEmail, joi.string().required())
       .then(() => clients.mongodb())
       .then(db => db.collection(this.COLLECTION_NAME)
         .findOne({ email: userEmail }))
       .then((user) => {
-        // if (!bcrypt.compareSync(userPassword, user.password)) throw errors.unauthorized();
         return user;
       });
   }

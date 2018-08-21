@@ -14,7 +14,6 @@ export default function (request, response) {
   return favoriteServices
     .findOneByAlbumId(user, favoriteAlbum)
     .then((favoriteFound) => {
-
       if (favoriteFound === null) {
         response.render(favoriteView, { error: true, message: 'album non existant' });
       }
@@ -23,7 +22,6 @@ export default function (request, response) {
       favoriteServices
         .deleteOne(user, id)
         .then((deleteCount) => {
-
           if (deleteCount === 0) {
             response.render(favoriteView, { error: true, message: 'une erreur est survenue lors de la suppression !' });
           }

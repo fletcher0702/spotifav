@@ -16,7 +16,6 @@ export default function (request, response) {
 }
 
 export const passwordUpdate = function (request, response) {
-
   const mail = request.user.email;
   const pwd = request.body.password;
   const confirmedPwd = request.body.confirmedPassword;

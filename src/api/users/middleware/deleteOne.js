@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return,no-underscore-dangle */
 import usersServices from '../../../modules/users/services';
 import favoritesServices from '../../../modules/favoris/services';
 
@@ -14,13 +15,13 @@ export default function (req, res, next) {
 
       favoritesServices
         .deleteAssociatedFavorites(userFound._id.toString())
-        .then(res => res)
+        .then(response => response)
         .catch(err => err);
 
       usersServices
         .deleteOne(userFound.email)
-        .then(response => res.status(201).json({ message: `L'utilisateur ${mail} a été supprimé ! ` }))
-        .catch(err => res.status(401).json({ erreur: 'Erreur lors de la suppréssion.' }));
+        .then(() => res.status(201).json({ message: `L'utilisateur ${mail} a été supprimé ! ` }))
+        .catch(() => res.status(401).json({ erreur: 'Erreur lors de la suppréssion.' }));
     })
     .catch(err => next(err));
 }

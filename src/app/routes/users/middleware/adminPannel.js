@@ -1,4 +1,4 @@
-/* eslint-disable prefer-destructuring,no-unreachable,consistent-return,max-len */
+/* eslint-disable prefer-destructuring,no-unreachable,consistent-return,max-len,no-useless-escape,no-underscore-dangle */
 import IdValidator from 'valid-objectid';
 import usersServices from '../../../../modules/users/services';
 import favoritesServices from '../../../../modules/favoris/services';
@@ -52,14 +52,12 @@ export const userExist = function (request, response, next) {
 
   if (id === '' || !IdValidator.isValid(id)) {
     response.redirect(adminPannelLink);
-    done(null, false);
   } else {
     return usersServices
       .findOneById(id)
       .then((userFound) => {
         if (userFound === null) {
           response.redirect(adminPannelLink);
-          done(null, false);
         } else {
           next();
         }

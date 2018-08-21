@@ -2,7 +2,6 @@
 import usersServices from '../../../modules/users/services';
 
 export default function (req, res, next) {
-
   const mail = req.params.userEmail;
 
   return usersServices

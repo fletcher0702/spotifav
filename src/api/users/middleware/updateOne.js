@@ -7,7 +7,7 @@ export default function (req, res, next) {
   usersServices
     .findOne(mail)
     .then((userFound) => {
-      if (userFound === null) return res.status(401).json({ message: 'L\'utilisateur n\"existe pas !' });
+      if (userFound === null) return res.status(401).json({ message: 'L\'utilisateur n\'existe pas !' });
 
       return usersServices
         .updateOne(mail, req.body)

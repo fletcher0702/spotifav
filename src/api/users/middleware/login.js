@@ -14,7 +14,7 @@ export default function (req, res) {
 
 
   usersServices
-    .findUser(mail, pwd)
+    .findUser(mail)
     .then((userFound) => {
       if (userFound === null) {
         res.status(401).json({ message: 'Identifiants incorrects !' });

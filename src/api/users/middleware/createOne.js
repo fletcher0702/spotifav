@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import jwtUtils from '../../../utils/jwt.utils';
 import usersServices from '../../../modules/users/services';
 

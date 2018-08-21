@@ -3,7 +3,6 @@ import { ObjectId } from 'mongodb';
 import joi from 'joi';
 import clients from '../../clients';
 import model from './models';
-import errors from '../../enums/errors';
 import usersServices from '../users/services';
 
 

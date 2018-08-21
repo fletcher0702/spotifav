@@ -1,10 +1,8 @@
-/* eslint-disable max-len,no-underscore-dangle */
+/* eslint-disable max-len,no-underscore-dangle,padded-blocks */
 import IdValidator from 'valid-objectid';
 import favoriteServices from '../../../../modules/favoris/services';
 
 export default function (request, response) {
-  const favoriteView = 'favorites';
-
   if (!IdValidator.isValid(request.params.userId)) {
     response.send({ error: true, message: 'id utilisateur invalide!' });
   }
@@ -15,7 +13,6 @@ export default function (request, response) {
   return favoriteServices
     .findOneByAlbumId(user, favoriteAlbum)
     .then((favoriteFound) => {
-
       if (favoriteFound === null) {
         response.send({ error: true, message: 'album non existant' });
       }
@@ -24,7 +21,6 @@ export default function (request, response) {
       favoriteServices
         .deleteOne(user, id)
         .then((deleteCount) => {
-
           if (deleteCount === 0) {
             response.send({ error: true, message: 'une erreur est survenue lors de la suppression !' });
           }
