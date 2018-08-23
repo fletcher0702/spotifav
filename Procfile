@@ -1,1 +1,1 @@
-web: npm start ./node_modules/.bin/pm2 start pm2.yml
+web: node src/index.js
