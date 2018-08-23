@@ -13,6 +13,10 @@
     "test-lint": "./node_modules/.bin/eslint './src/**'",
     "test": "npm run test-lint && npm run test-unit-with-coverage"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fletcher0702/spotifav.git"
+  },
   "author": "",
   "license": "ISC",
   "dependencies": {

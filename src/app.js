@@ -81,6 +81,6 @@ app.use(
 );
 
 app.listen(config.get('port'), () => {
-  console.log('You now listening on port 3000');
+  console.log(`You now listening on port ${config.get('port')}`);
 });
 export default app;
