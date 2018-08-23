@@ -1,16 +1,4 @@
-<div id="facebook-btn" class="ui center aligned basic segment">
-  <button class="ui inverted blue animated button">
-    <div class="visible content">Se connecter avec Facebook</div>
-    <div class="hidden content">
-      <i class="facebook large icon"></i>
-    </div>
-  </button>
-<div class="ui horizontal divider">
-  Ou
-</div>
 
-<h1> Inscrivez-vous avec votre adresse email </h1>
-</div>
 
   {{#if errorMessage }}
     <div id="warning" class="ui negative message">
@@ -21,14 +9,22 @@
     </div>
   {{/if}}
   <form action={{signup}} method="post" class="ui center form authenticate">
+    <div id="facebook-btn" class="ui center aligned basic segment">
+      <button class="ui inverted blue animated button">
+        <div class="visible content">Se connecter avec Facebook</div>
+        <div class="hidden content">
+          <i class="facebook large icon"></i>
+        </div>
+      </button>
+      <div class="ui horizontal divider">
+        Ou
+      </div>
 
-
-
+      <h1> Inscrivez-vous avec votre adresse email </h1>
+    </div>
     <div class="field tiny center">
       <label>Nom</label>
-
       <input type="text" name="lastName" placeholder="Nom">
-
     </div>
 
     <div class="field tiny center">
@@ -52,12 +48,6 @@
 
       <input type="password" name="confirmedPassword" placeholder="Confirmation mot de passe">
 
-    </div>
-    <div class="field">
-      <div class="ui checkbox">
-        <input type="checkbox" name="checkbox">
-        <label>J'accepte les termes d'utilisation.</label>
-      </div>
     </div>
     <div id="attachedSignedUp" class="ui bottom attached message">
       <i class="icon help"></i>

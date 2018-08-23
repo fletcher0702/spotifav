@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import bcrypt from 'bcrypt';
 import userServices from '../../../../modules/users/services';
 
@@ -10,9 +11,7 @@ export default function (request, email, password, done) {
 
         bcrypt.compare(password, hash, (err, res) => {
           if (err) done(null, false);
-
           done(null, user);
-          console.log(res);
         });
       } else {
         done(null, false);
