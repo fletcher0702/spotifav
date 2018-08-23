@@ -53,16 +53,3 @@ function favoriteAction(link, message) {
     window.location.href = link;
   }
 }
-
-// $('#spotify-btn').on('click', () => {
-//   $.ajax({
-//
-//     url: '/spotify',
-//     success(spotifyResponse) {
-//       alert(spotifyResponse);
-//     },
-//     error() {
-//       alert('error request');
-//     },
-//   });
-// });

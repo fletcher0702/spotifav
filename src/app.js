@@ -29,6 +29,7 @@ app.locals.createUser = '/admin/pannel/create';
 app.locals.deleteUser = '/admin/pannel/delete';
 app.locals.updateUserLink = '/admin/pannel/update';
 app.locals.adminPannel = '/admin/pannel/';
+app.locals.mentions = '/mentions';
 app.locals.views = {
 
   home: 'index',
@@ -40,6 +41,7 @@ app.locals.views = {
   gallerie: 'albums',
   profil: 'profil',
   createUser: 'createUser',
+  mentions: 'mentions',
 };
 
 // Setting default location of layout template

@@ -1,4 +1,4 @@
-/* eslint-disable consistent-return */
+/* eslint-disable consistent-return,no-trailing-spaces */
 
 import usersServices from '../../../../modules/users/services';
 
@@ -10,20 +10,21 @@ export default function (req, res) {
   const mail = req.body.email;
   const pwd = req.body.password;
   const confirmedPwd = req.body.confirmedPassword;
+  const signupView = 'signup';
 
   if (mail == null || pwd == null || confirmedPwd == null) {
-    return res.status(400).json({ error: 'missing parameters' });
+    res.render(signupView, { errorMessage: true, message: 'Champ(s) Vide(s)  !' });
   }
 
   if (pwd !== confirmedPwd) {
-    return res.status(400).json({ error: 'different password' });
+    res.render(signupView, { errorMessage: true, message: 'Mots de passe différents  !' });
   }
 
   // Deleting confirmation password field
   delete req.body.confirmedPassword;
 
   if (!EMAIL_REGEX.test(mail)) {
-    return res.status(400).json({ error: 'email is not valid' });
+    res.render(signupView, { errorMessage: true, message: 'Email invalide !' });
   }
   return usersServices
     .findOne(mail)
@@ -32,8 +33,8 @@ export default function (req, res) {
         return usersServices
           .createOne(req.body)
           .then(createdUser => createdUser)
-          .catch(err => console.log(err));
+          .catch(err => err);
       }
     })
-    .catch(err => console.log(err));
+    .catch(err => err);
 }

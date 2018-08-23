@@ -7,12 +7,17 @@ export default function (request, email, password, done) {
     .findOne(email)
     .then((user) => {
       if (user !== null) {
+        console.log(user);
         const hash = user.password;
 
-        bcrypt.compare(password, hash, (err, res) => {
-          if (err) done(null, false);
-          done(null, user);
-        });
+        bcrypt
+          .compare(password, hash)
+          .then((res) => {
+            console.log(res);
+            if (res) done(null, user);
+            else done(null, false);
+          })
+          .catch(err => err);
       } else {
         done(null, false);
       }

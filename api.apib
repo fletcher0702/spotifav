@@ -1,5 +1,5 @@
 FORMAT: 1A
-HOST: http://localhost:3000
+HOST: https://spotifavorites.herokuapp.com
 
 # Spotifav App
 
@@ -12,7 +12,7 @@ HOST: http://localhost:3000
 
 ## Create a user [POST api/signup]
 + Body
-  `{ email: "john.doe@mail.com", password: "hello" }`
+  `{ email: "john.doe@mail.com", pwd: "azerty", confirmedPassword: "azerty" }`
 + Response 200 (application/json)
 
 ## Get connected user [GET api/users/profile]
@@ -40,11 +40,11 @@ HOST: http://localhost:3000
 
 ## Get token of a user [POST api/users/login]
 + Body
-  `{ email: "john.doe@mail.com", password: "hello" }`
+  `{ email: "john.doe@mail.com", password: "azerty" }`
 + Response 200 (application/json)
 + Response 404 (application/json)
 
-## Manage a user [/users/{userEmail}]
+## Manage a user for admin [/users/{userEmail}]
 ### Get a user [GET]
 + Response 200 (application/json)
   + Attributes (User)
@@ -53,7 +53,7 @@ HOST: http://localhost:3000
 
 ### Update a user [PATCH /users/{userEmail}]
 + Body
-  `{ firstName: "john", lastName: "doe" }`
+  `{ email: "john.doe@mail.com", pwd: "azerty" }`
 + Response 200 (application/json)
   + Attributes (User)
 + Response 404 (application/json)
@@ -64,6 +64,54 @@ HOST: http://localhost:3000
   + Attributes (User)
 + Response 404 (application/json)
 + Response 403 (application/json)
+
+#Group Albums
+
+## Get Albums [GET /albums]
++ Response 201 (application/json)
+  + Attributes (array[Album])
++ Response 401 (application/json)
+
+## Get favorites [GET /users/{userId}/favorites]
++ Response 200 (application/json)
+  + Attributes (array[Album])
++ Response 404 (application/json)
++ Response 403 (application/json)
+
+## Create a favorite [POST /users/{userId}/favorites]
++ Body
+  `{ albumId: "3T4fUhGYeRNVUGevb0wThu" }`
++ Response 201 (application/json)
++ Response 401 (application/json)
++ Response 403 (application/json)
+
+## Get a favorite [GET /users/{userId}/favorites/{favoriteId}]
++ Response 200 (application/json)
+  + Attributes (array[Album])
++ Response 401 (application/json)
++ Response 404 (application/json)
++ Response 403 (application/json)
+
+## Delete a favorite [DELETE /users/{userId}/favorites/{favoriteId}]
++ Response 201 (application/json)
+  + Attributes (array[Album])
++ Response 401 (application/json)
++ Response 404 (application/json)
++ Response 403 (application/json)
+
+## Get all favorite for admin [GET /admin/favorites]
++ Response 201 (application/json)
+  + Attributes (array[Album])
++ Response 404 (application/json)
++ Response 403 (application/json)
+
+## Delete a favorite for admin [DELETE /admin/favorites/{favoriteId}]
++ Response 201 (application/json)
+  + Attributes (array[Album])
++ Response 401 (application/json)
++ Response 404 (application/json)
++ Response 403 (application/json)
+
 
 # Data Structures
 

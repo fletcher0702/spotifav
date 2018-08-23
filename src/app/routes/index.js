@@ -93,7 +93,7 @@ router.post('/signup', (request, response, next) => {
   signup(request, response, next)
     .then((userFound) => {
       if (userFound) {
-        response.render(app.locals.views.login, { errorMessage: false, message: 'Vous être bien inscrit, connectez vous !' });
+        response.redirect(app.locals.loginAction);
       } else response.render(app.locals.views.signup, { errorMessage: true, message: 'Email dejà pris, désolé :-(' });
     });
 });
@@ -141,5 +141,11 @@ router.get('/favorites', isLogged, findFavorites);
 router.get('/favorites/rating/:albumId/:albumName', isLogged, addFavorite);
 router.get('/admin/favorites/delete/:userId/:albumId', isLogged, isAdmin, deleteUserFavorite);
 router.get('/favorites/delete', isLogged, deleteFavorite);
+
+// Mentions
+
+router.get('/mentions', (request, response) => {
+  response.render(app.locals.views.mentions);
+});
 
 export default router;

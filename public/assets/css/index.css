@@ -247,3 +247,11 @@ div.adminPannel {
   padding-top: 3%;
 
 }
+
+#notFound{
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

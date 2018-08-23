@@ -9,6 +9,7 @@ export default function (request, response) {
 
   const user = request.params.userId;
   const favoriteAlbum = request.params.albumId;
+  const favoritesView = 'favorites';
 
   return favoriteServices
     .findOneByAlbumId(user, favoriteAlbum)
@@ -22,10 +23,10 @@ export default function (request, response) {
         .deleteOne(user, id)
         .then((deleteCount) => {
           if (deleteCount === 0) {
-            response.send({ error: true, message: 'une erreur est survenue lors de la suppression !' });
+            response.render(favoritesView, { error: true, message: 'une erreur est survenue lors de la suppression !' });
           }
 
-          response.send({ success: true, message: 'favoris supprimé !' });
+          response.render(favoritesView, { success: true, message: 'favoris supprimé !' });
         })
         .catch(err => err);
     })

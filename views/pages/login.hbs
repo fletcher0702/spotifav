@@ -32,13 +32,16 @@
 
     <div class="field">
       <label>Email</label>
-      <input type="text" name="email" placeholder="Email">
+      <input required="true" type="text" name="email" placeholder="Email">
     </div>
     <div class="field">
       <label>Mot de passe</label>
-      <input type="password" name="password" placeholder="Mot de passe">
+      <input required="true" type="password" name="password" placeholder="Mot de passe">
     </div>
-
+    <div id="attachedSignedUp" class="ui bottom attached message">
+      <i class="icon help"></i>
+      Pas de compte ? <a href={{signup}}>Inscris toi ici</a>
+    </div>
     <button type="submit" id="btn-form" class="ui inverted green animated button right">
       <div class="visible content">Se connecter</div>
       <div class="hidden content">
