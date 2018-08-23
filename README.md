@@ -4,7 +4,7 @@ NodeJS : v8.X.X and above
 ## Configurations
 
 <b>You have to configure those varaibles as env variables in your shell, if you want the native configuration.</br>
-But you can steal change to your own.</b>
+But you can still change to your own.</b>
 
 export DB='your database location'</br>
 
