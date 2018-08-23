@@ -1,18 +1,6 @@
-import SpotifyWebApi from 'spotify-web-api-node';
-
-const clientIdSpotify = '';
-const clientSecretSpotify = '';
-const spotifyApiConfig = {
+const clientIdSpotify = process.env.CLIENT_ID;
+const clientSecretSpotify = process.env.CLIENT_SECRET;
+export default {
   clientId: clientIdSpotify,
   clientSecret: clientSecretSpotify,
 };
-
-const spotifyApi = new SpotifyWebApi(spotifyApiConfig);
-
-spotifyApi
-  .clientCredentialsGrant()
-  .then((data) => {
-    spotifyApi.setAccessToken(data.body.access_token);
-  }, error => console.log('something went wrong', error));
-
-export default spotifyApi;

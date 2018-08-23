@@ -1,9 +1,14 @@
 import joi from 'joi';
 import { expect } from 'chai';
-import model from './models';
+import model, { modelForUpdate } from './models';
 
 describe('modules > Users > model', () => {
   const validData = {
+    email: 'john.doe@gmail.com',
+    password: 'azerty',
+  };
+
+  const validUpdateData = {
     email: 'john.doe@gmail.com',
     password: 'azerty',
   };
@@ -22,5 +27,13 @@ describe('modules > Users > model', () => {
     });
   });
 
+  it('should not works, modelForUpdate', (done) => {
+    joi.validate(unvalidData, modelForUpdate).catch(() => {
+      done();
+    });
+  });
+
   it('should works', () => joi.validate(validData, model));
+
+  it('should works, modelForUpdate', () => joi.validate(validUpdateData, modelForUpdate));
 });

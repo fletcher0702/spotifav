@@ -9,4 +9,5 @@ export default {
   resave: false,
   store: new MongoStore({ url: config.get('database').url }),
   saveUninitialized: false,
+  cookie: { secure: true },
 };

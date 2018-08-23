@@ -1,4 +1,12 @@
-import spotifyApi from '../../../utils/spotify';
+import SpotifyWebApi from 'spotify-web-api-node';
+import spotifyApiConfig from '../../../utils/spotify';
+
+const spotifyApi = new SpotifyWebApi(spotifyApiConfig);
+spotifyApi
+  .clientCredentialsGrant()
+  .then((data) => {
+    spotifyApi.setAccessToken(data.body.access_token);
+  }, error => console.log('something went wrong', error));
 
 export default function (request, response) {
   let searchAlbum = '';

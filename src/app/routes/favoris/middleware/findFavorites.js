@@ -22,7 +22,6 @@ export default function (request, response) {
       const favoritesDictionary = [];
       res.forEach((favorite) => {
         favorite._id = favorite._id.toString();
-        console.log(typeof favorite._id);
         favoritesDictionary.push(favorite);
       });
       response.render(favoriteView, { emptyFavorite: emptyFavoriteTest, favorites: favoritesDictionary });

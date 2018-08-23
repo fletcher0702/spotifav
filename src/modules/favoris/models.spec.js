@@ -2,14 +2,14 @@ import joi from 'joi';
 import { expect } from 'chai';
 import model from './models';
 
-describe('modules > Tasks > model', () => {
+describe('modules > favoris > model', () => {
   const validData = {
-    listId: '5b290b4fb4fe1f7e5fc5836f',
+    userId: '5b290b4fb4fe1f7e5fc5836f',
+    albumId: 'okzdncuyyse',
     name: 'A great list',
-    description: 'A great description',
   };
 
-  const unvalidData = {
+  const invalidData = {
     anotherKey: '12345',
   };
 
@@ -18,7 +18,7 @@ describe('modules > Tasks > model', () => {
   });
 
   it('should not works', (done) => {
-    joi.validate(unvalidData, model).catch(() => {
+    joi.validate(invalidData, model).catch(() => {
       done();
     });
   });

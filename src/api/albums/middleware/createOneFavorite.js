@@ -1,7 +1,15 @@
 import IdValidator from 'valid-objectid';
+import SpotifyWebApi from 'spotify-web-api-node';
 import favoriteServices from '../../../modules/favoris/services';
 import userServices from '../../../modules/users/services';
-import spotifyApi from '../../../utils/spotify';
+import spotifyApiConfig from '../../../utils/spotify';
+
+const spotifyApi = new SpotifyWebApi(spotifyApiConfig);
+spotifyApi
+  .clientCredentialsGrant()
+  .then((data) => {
+    spotifyApi.setAccessToken(data.body.access_token);
+  }, error => console.log('something went wrong', error));
 
 export default function (request, response) {
   if (!IdValidator.isValid(request.params.userId)) response.send('userId non valide !');

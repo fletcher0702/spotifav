@@ -29,7 +29,7 @@ describe('clients > mongodb', () => {
 
     return mongodb().then((res) => {
       expect(res).to.equal('hello');
-      expect(db).to.have.been.calledWith('todo-exterminator');
+      expect(db).to.have.been.calledWith('spotifav');
     });
   });
 

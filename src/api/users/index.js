@@ -11,7 +11,7 @@ import isAdmin from './middleware/isAdmin';
 import findMe from './middleware/findMe';
 import deleteMe from './middleware/deleteMe';
 import updateMe from './middleware/updateMe';
-import cfg from './middleware/config';
+import { cfg } from '../../utils/jwt.utils';
 
 const router = Router();
 router.use(passport.initialize());

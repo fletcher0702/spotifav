@@ -8,13 +8,11 @@ export default function (req, res) {
   const confirmedPwd = req.body.confirmedPassword;
 
   if (mail === null || pwd === null || confirmedPwd === null) {
-    res.status(401).json({ message: 'Champ(s) vide(s) ' });
-    res.send();
+    return res.status(401).json({ message: 'Champ(s) vide(s) ' });
   }
 
   if (pwd !== confirmedPwd) {
-    res.status(401).json({ message: 'Mots de passe différents !' });
-    res.send();
+    return res.status(401).json({ message: 'Mots de passe différents !' });
   }
 
   delete req.body.confirmedPassword;
@@ -22,19 +20,18 @@ export default function (req, res) {
     .findOne(mail)
     .then((userFound) => {
       if (userFound !== null) {
-        res.status(401).json({ message: 'Le mail existe déjà ! Désolé :-( ' });
-      } else {
-        return usersServices
-          .createOne(req.body)
-          .then((createdUser) => {
-            const accessToken = jwtUtils.generateTokenForUser(createdUser);
-
-            res.status(201).json({
-              message: 'l\'utilisateur a bien été créé, récupérez votre token',
-              token: accessToken,
-            });
-          })
-          .catch(() => res.status(401).json({ message: 'Problème lors de la création de l\'utilisateur' }));
+        return res.status(401).json({ message: 'Le mail existe déjà ! Désolé :-( ' });
       }
+      return usersServices
+        .createOne(req.body)
+        .then((createdUser) => {
+          const accessToken = jwtUtils.generateTokenForUser(createdUser);
+
+          return res.status(201).json({
+            message: 'l\'utilisateur a bien été créé, récupérez votre token',
+            token: accessToken,
+          });
+        })
+        .catch(() => res.status(401).json({ message: 'Problème lors de la création de l\'utilisateur' }));
     });
 }
